@@ -43,9 +43,11 @@ CREATE SEQUENCE chef_id_seq
     INCREMENT BY 1
     START WITH 1;
 
+
 create table Recipe (
     id          number primary key,
     name        varchar2(30) not null,
+    instruction clob not null,
     photo       blob,
     chef_id     number unique not null, 
     ingredient  blob not null, 

@@ -1,9 +1,0 @@
-@import "~bootstrap/dist/css/bootstrap.css";
-@import "~font-awesome/css/font-awesome.css";
-
-body {
-    font-family: 'Montserrat', sans-serif;
-    background-image: url("src\assets\img\alyson-mcphee-499812-unsplash.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-}
