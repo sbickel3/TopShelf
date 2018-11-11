@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand navbar-dark" style="background-color: #e64541">
+  <a class="navbar-left" href="/">
+    <img src="assets\img\TopShelf_Icon.png" id="header_icon">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/view-recipes">Recipes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/featured-recipe">What's New</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          Options
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" routerLink="/user-home">User Home</a>
+          <a class="dropdown-item" routerLink="/possible-recipes">What Can I Make?</a>
+          <a class="dropdown-item" routerLink="/checklist">Checklist</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <a class="btn btn-light" routerLink="/login" role="button">Log In</a>
+  <a class="btn btn-secondary" routerLink="/register" role="button">Register</a>
+</nav>
