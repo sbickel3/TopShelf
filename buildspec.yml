@@ -8,12 +8,12 @@ phases:
 
      - echo Running JUnit tests on `date`
 
-     - mvn test
-
 
  build:
 
    commands:
+   
+     - cd server_side/topshelf
 
      - echo Maven build started on `date`
 
