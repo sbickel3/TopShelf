@@ -13,6 +13,3 @@ phases:
   post_build:
     commands:
       - echo Deploying production files to 
-  artifacts:
-    files:
-      - '**/*'
