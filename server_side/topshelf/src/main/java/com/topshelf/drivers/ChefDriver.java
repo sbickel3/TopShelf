@@ -10,6 +10,7 @@ import com.topshelf.dao.ChefDaoImpl;
 import com.topshelf.models.Chef;
 import com.topshelf.models.Fridge;
 import com.topshelf.models.GroceryList;
+import com.topshelf.services.ChefService;
 import com.topshelf.util.ObjectTypeConverter;
 
 public class ChefDriver {
@@ -62,6 +63,11 @@ public class ChefDriver {
 			Chef chef = chefDao.getChefById(7);
 			System.out.println("Chef: " + chef);
 			System.out.println("Fridge: " + ObjectTypeConverter.convertBLOBtoJSON(chef.getFridge().getIngredient()));
+			
+			//chef = chefDao.getChefByUsernameAndPassword("ysm", "password");
+			ChefService chefService = new ChefService();
+			chef = chefService.loginChef("ysm", "password");
+			System.out.println("Chef 2: " + chef);
 			
 			System.out.println("transaction complete");
 			
