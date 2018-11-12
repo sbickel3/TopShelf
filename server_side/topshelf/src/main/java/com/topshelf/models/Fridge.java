@@ -17,7 +17,7 @@ public class Fridge {
 
 	@Id
 	@Column(name="id")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="grocery_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="fridge_seq")
 	private int id;
 	
 	@Column(name="ingredient")
