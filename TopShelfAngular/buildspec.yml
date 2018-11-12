@@ -1,4 +1,4 @@
-﻿version: 0.2
+version: 0.2
 
 phases:
   install:
@@ -13,7 +13,7 @@ phases:
         - echo Build completed on `date`
     post_build:
       commands:
-	- echo Deploying production files to S3 web hosting bucket
+	      - echo Deploying production files to S3 web hosting bucket
         - aws s3 sync --delete dist s3://topshelfbucket
         - echo Files deployed on `date`
     artifacts:
