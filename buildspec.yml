@@ -13,7 +13,7 @@ phases:
    commands:
 
      - echo Maven build started on `date`
-     - mvn clean package
+     - mvn package
      - mv target/topshelf-0.0.1-SNAPSHOT.war topshelf-0.0.1-SNAPSHOT.war
 artifacts:
 
@@ -28,6 +28,6 @@ eb_codebuild_settings:
 
  Image: aws/codebuild/java:openjdk-8
 
- Timeout: 60
+ Timeout: 120
 
  base-directory: 'target/topshelf'
