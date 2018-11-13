@@ -13,12 +13,12 @@ phases:
    commands:
 
      - echo Maven build started on `date`
-
+     - mvn clean package
+     - mv target/topshelf-0.0.1-SNAPSHOT.war topshelf-0.0.1-SNAPSHOT.war
 artifacts:
 
  files:
-
-   - topshelf.war
+ - topshelf-0.0.1-SNAPSHOT.war
 
 eb_codebuild_settings:
 
