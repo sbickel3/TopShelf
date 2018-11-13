@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+
+ pre_build:
+
+   commands:
+
+     - echo Running JUnit tests on `date`
+     - mvn -version
+ build:
+
+   commands:
+
+     - echo Maven build started on `date`
+     - mvn package
+     - mv target/topshelf-0.0.1-SNAPSHOT.war topshelf-0.0.1-SNAPSHOT.war
+artifacts:
+
+ files:
+ - topshelf-0.0.1-SNAPSHOT.war
+
+eb_codebuild_settings:
+
+ CodeBuildServiceRole: codebuild-TopShelfAngularBuild-service-role
+
+ ComputeType: BUILD_GENERAL1_SMALL
+
+ Image: aws/codebuild/java:openjdk-8
+
+ Timeout: 120
+
+ base-directory: 'target/topshelf'
