@@ -7,15 +7,12 @@ phases:
    commands:
 
      - echo Running JUnit tests on `date`
-     - mvn test
 
  build:
 
    commands:
 
      - echo Maven build started on `date`
-
-     - mvn clean package
 
 artifacts:
 
