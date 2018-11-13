@@ -13,8 +13,6 @@
 .mtj.tmp/ 
 
 # Package Files # 
-*.jar 
-!ojdbc7-11.2.0.jar 
 *.war 
 *.ear 
 *.zip 
