@@ -20,8 +20,6 @@ artifacts:
 
    - topshelf.war
 
-   - .ebextensions/**/*
-
 eb_codebuild_settings:
 
  CodeBuildServiceRole: codebuild-TopShelfAngularBuild-service-role
