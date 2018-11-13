@@ -25,10 +25,11 @@ phases:
 artifacts:
 
  files:
+  - '**/*'
 
-   - /topshelf-0.0.1-SNAPSHOT.war
+   #- /topshelf-0.0.1-SNAPSHOT.war
 
-   - .ebextensions/**/*
+   #- .ebextensions/**/*
 
 eb_codebuild_settings:
 
