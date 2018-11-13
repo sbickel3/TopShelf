@@ -8,8 +8,6 @@ phases:
 
      - echo Running JUnit tests on `date`
 
-     - mvn test
-
 
  build:
 
