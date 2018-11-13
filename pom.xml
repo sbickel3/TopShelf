@@ -18,12 +18,13 @@
            <artifactId>hibernate-core</artifactId>
            <version>5.2.0.Final</version>
        </dependency>
+	   <!--
         <dependency>
         	<!-- import JDBC -->
            <groupId>com.oracle</groupId>
            <artifactId>ojdbc7</artifactId>
            <version>11.2.0</version>
-       </dependency>
+       </dependency>-->
        <dependency>
        		<!-- import JUnit testing -->
             <groupId>junit</groupId>
