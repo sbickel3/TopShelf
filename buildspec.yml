@@ -7,8 +7,7 @@ phases:
    commands:
 
      - echo Running JUnit tests on `date`
-     - mvn test
-
+     - mvn -version
  build:
 
    commands:
