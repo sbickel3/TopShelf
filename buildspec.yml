@@ -5,7 +5,7 @@ phases:
  pre_build:
 
    commands:
-     - cd https://github.com/sbickel3/TopShelf/server_side/topshelf/
+     - cd TopShelf/server_side/topshelf/
  build:
 
    commands:
