@@ -5,11 +5,12 @@ phases:
  pre_build:
 
    commands:
+     - cd server_side/topshelf
+     - pwd
+     - mvn -version
 
      - echo Running JUnit tests on `date`
-
      - mvn test
-
 
  build:
 
@@ -19,11 +20,13 @@ phases:
 
      - mvn clean package
 
+     - mv target/topshelf-0.0.1-SNAPSHOT.war topshelf-0.0.1-SNAPSHOT.war
+
 artifacts:
 
  files:
 
-   - topshelf.war
+   - topshelf-0.0.1-SNAPSHOT.war
 
    - .ebextensions/**/*
 
