@@ -31,7 +31,7 @@ artifacts:
 
 eb_codebuild_settings:
 
- CodeBuildServiceRole: codebuild-TopShelfAngularBuild-service-role
+ CodeBuildServiceRole: codebuild-TopShelfCI-service-role
 
  ComputeType: BUILD_GENERAL1_SMALL
 
