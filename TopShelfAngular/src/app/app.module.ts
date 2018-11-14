@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule }from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { UiModule } from './ui/ui.module';
@@ -17,6 +19,7 @@ import { AddRecipesComponent } from './add-recipes/add-recipes.component';
 import { ChecklistComponent } from './checklist/checklist.component';
 import { PossibleRecipesComponent } from './possible-recipes/possible-recipes.component';
 import { AboutComponent } from './about/about.component';
+import { UserService } from './user.service';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,8 @@ import { AboutComponent } from './about/about.component';
   imports: [
     BrowserModule,
     UiModule,
+    FormsModule, // necessary for two-way data binding using ngModel
+    HttpClientModule,
     RouterModule.forRoot([
       {
         path: 'splash',
@@ -53,11 +58,13 @@ import { AboutComponent } from './about/about.component';
       },
       {
         path: 'add-recipes',
-        component: AddRecipesComponent
+        component: AddRecipesComponent,
+        canActivate: [UserService]
       },
       {
         path: 'checklist',
-        component: ChecklistComponent
+        component: ChecklistComponent,
+        canActivate: [UserService]
       },
       {
         path: 'featured-recipe',
@@ -65,7 +72,8 @@ import { AboutComponent } from './about/about.component';
       },
       {
         path: 'possible-recipes',
-        component: PossibleRecipesComponent
+        component: PossibleRecipesComponent,
+        canActivate: [UserService]
       },
       {
         path: 'user-home',
@@ -73,19 +81,22 @@ import { AboutComponent } from './about/about.component';
       },
       {
         path: 'view-recipes',
-        component: ViewRecipesComponent
+        component: ViewRecipesComponent,
+        canActivate: [UserService]
       },
       {
         path: 'about',
         component: AboutComponent
       },
       {
-        path: "",
+        path: '',
         component: SplashComponent
       }
     ])
   ],
-  providers: [],
+  providers: [
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

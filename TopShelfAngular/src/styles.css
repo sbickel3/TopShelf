@@ -4,3 +4,14 @@
 body {
     font-family: 'Montserrat';font-size: 22px;
 }
+
+.ts-button{
+    background-color: #e64541;
+    color: white;
+    text-shadow: none;
+}
+
+.ts-button:hover{
+    background-color: #CD3E3A;
+    color: white;
+}
