@@ -16,11 +16,20 @@ const HTTP_OPTIONS = {
 
 export class UserService {
 
+  loggedIn: boolean = false;
+
   constructor(private http: HttpClient) { }
 
   loginUser(user: User): Observable<User> {
     console.log(`Attempting to login user: ${user.username}`);
     let userJSON = JSON.stringify(user);
-    return this.http.post<User>(environment.apiURL + '/user-home', userJSON, HTTP_OPTIONS);
+    let retrievedUser = this.http.post<User>(environment.apiURL + '/user-home', userJSON, HTTP_OPTIONS);
+    if (retrievedUser) {
+      this.loggedIn = true;
+      return retrievedUser;
+    } else {
+      this.loggedIn = false;
+      return null;
+    }
   }
 }

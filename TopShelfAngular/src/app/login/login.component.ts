@@ -11,14 +11,14 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   user: User = new User();
-  loggedIn: boolean = false;
-  logInAttempt: boolean = false;
   loggedUser = localStorage.getItem('user');
+  
 
   constructor(private userService: UserService, private router: Router) {}
 
+
   ngOnInit() {
-    if(this.loggedUser){
+    if (this.loggedUser) {
       this.router.navigate(['/user-home']);
     }
   }
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     // this.userService.loginUser(this.user).subscribe(user => {
     //   console.log(document.getElementById('inputUsername'));
     //   if(!user) {
-    //     this.loggedIn = false;
+    //     this.userService.loggedIn = false;
     //   } else {
     //     localStorage.setItem('user', JSON.stringify(user));
     //     console.log(`User, ${this.user.username}, successfully logged in!`);
@@ -35,14 +35,10 @@ export class LoginComponent implements OnInit {
     //     this.router.navigate(['user-home']);
     //   }
     // })
-    this.logInAttempt = true;
     let inputUsername = (<HTMLInputElement>document.getElementById('inputUsername')).value;
     let inputPassword = (<HTMLInputElement>document.getElementById('inputPassword')).value;
-    if(inputUsername && inputPassword){
-      this.loggedIn = true;
+    if (inputUsername && inputPassword) {
       this.router.navigate(['user-home']);
-    } else {
-      this.loggedIn = false;
     }
 
   }

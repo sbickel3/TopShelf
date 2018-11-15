@@ -1,3 +1,8 @@
-<p>
-  view-recipes works!
-</p>
+<h2>Recipe</h2>
+<ul *ngFor="let recipe of recipes">
+  <li>{{ recipe.name }}</li>
+  <li>{{ recipe.climate }}</li>
+  <li>{{ recipe.diameter }}</li>
+  <li>{{ recipe.gravity }}</li>
+  <li>{{ recipe.rotation_period }}</li>
+</ul>

@@ -81,8 +81,7 @@ import { UserService } from './user.service';
       },
       {
         path: 'view-recipes',
-        component: ViewRecipesComponent,
-        canActivate: [UserService]
+        component: ViewRecipesComponent
       },
       {
         path: 'about',
