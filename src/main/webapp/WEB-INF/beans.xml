@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/mvc
+						http://www.springframework.org/schema/mvc/spring-mvc.xsd
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx.xsd">
+    
+	<!-- Enable component scanning -->
+	<context:component-scan base-package="com.revature"/>
+	
+	<!-- Lets Spring know that MVC annotations will be leveraged to configure our web app -->
+	<mvc:annotation-driven/>
+	
+	<!-- Let's Spring know that the @Transactional annotation will be leveraged to manage DB transactions -->
+	<tx:annotation-driven/>
+	
+	<!-- DataSource bean, we are using Apache's DBCP2 connection pool manager. Not the only data source provider, but a good option -->
+	<bean id="myDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@springdemo.cghgcyrl8jan.us-east-2.rds.amazonaws.com:1521:ORCL"/>
+		<property name="username" value="TopShelf_Bickel_Mano_Massey"/>
+		<property name="password" value="DNmdvMySDMwa2De7"/>
+	</bean>
+	
+	<!-- SessionFactory bean -->
+	<bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource"/>
+		<property name="packagesToScan" value="com.revature"/>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- TransactionManager bean -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="mySessionFactory"/>
+	</bean>
+</beans>
