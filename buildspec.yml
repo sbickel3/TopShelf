@@ -7,7 +7,7 @@ phases:
    commands:
      - pwd
      - mvn -version
-     - mvn install:install-file -Dfile=./src/lib/ojdbc7-11.2.0.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=11.2.0 -Dpackaging=jar
+     - mvn install:install-file -Dfile=./src/main/resources/ojdbc7-11.2.0.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=11.2.0 -Dpackaging=jar
      - echo Running JUnit tests on `date`
      - mvn test
 
@@ -31,7 +31,7 @@ artifacts:
 
 eb_codebuild_settings:
 
- CodeBuildServiceRole: codebuild-TopShelfAngularBuild-service-role
+ CodeBuildServiceRole: codebuild-TopShelfCI-service-role
 
  ComputeType: BUILD_GENERAL1_SMALL
 
