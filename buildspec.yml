@@ -5,11 +5,11 @@ phases:
  pre_build:
 
    commands:
-
+     - pwd
+     - mvn -version
+     - mvn install:install-file -Dfile=./src/lib/ojdbc7-11.2.0.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=11.2.0 -Dpackaging=jar
      - echo Running JUnit tests on `date`
-
      - mvn test
-
 
  build:
 
@@ -19,11 +19,13 @@ phases:
 
      - mvn clean package
 
+     - mv target/topshelf-0.0.1-SNAPSHOT.war topshelf-0.0.1-SNAPSHOT.war
+
 artifacts:
 
  files:
 
-   - topshelf.war
+   - topshelf-0.0.1-SNAPSHOT.war
 
    - .ebextensions/**/*
 
