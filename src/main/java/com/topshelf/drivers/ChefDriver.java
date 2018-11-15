@@ -36,7 +36,7 @@ public class ChefDriver {
 			JSONObject obj = new JSONObject();
 			obj.put("nuts",	45);
 			obj.put("tomato", 35);
-			3qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq																				
+																					
 			
 //			// create a Chef object, including objects its reference with (Fridge & GroceryList)
 //			Fridge fridge = new Fridge(ingredient_blob);
