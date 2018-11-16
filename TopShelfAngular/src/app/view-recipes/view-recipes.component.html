@@ -1,8 +1,19 @@
 <h2>Recipe</h2>
+<input type="text" id="searchQuery">
+<button class="btn ts-button" (click)="searchForRecipe()">Submit</button>
+<div *ngIf="!recipes.hits && searchExecuted" class="container">NO RESULTS FOUND</div>
 <ul *ngFor="let recipe of recipes">
-  <li>{{ recipe.name }}</li>
-  <li>{{ recipe.climate }}</li>
-  <li>{{ recipe.diameter }}</li>
-  <li>{{ recipe.gravity }}</li>
-  <li>{{ recipe.rotation_period }}</li>
+  <ul *ngFor="let hits of recipe.hits">
+      <br>
+    <img [src]=hits.recipe.image />
+    <li>
+      <h2>{{ hits.recipe.label }}</h2>
+    </li>
+    <li><h3><a target="blank" [href]=hits.recipe.url>Recipe Instructions</a></h3></li>
+    <li><h3>Ingredients:</h3></li>
+    <ul *ngFor="let ingredient of hits.recipe.ingredientLines">
+      <li>{{ ingredient }}</li>
+    </ul>
+    <br>
+  </ul>
 </ul>

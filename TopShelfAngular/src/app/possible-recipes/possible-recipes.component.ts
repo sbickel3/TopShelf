@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-possible-recipes',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PossibleRecipesComponent implements OnInit {
 
-  constructor() { }
+  data: any;
+
+  constructor(private http: HttpClient) {
+    console.log(environment.apiURL + 'test');
+    this.http.get(environment.apiURL + 'test', { responseType: 'text' })
+      .subscribe(data => this.data = data);
+  }
 
   ngOnInit() {
   }
-
 }

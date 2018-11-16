@@ -72,8 +72,7 @@ import { UserService } from './user.service';
       },
       {
         path: 'possible-recipes',
-        component: PossibleRecipesComponent,
-        canActivate: [UserService]
+        component: PossibleRecipesComponent
       },
       {
         path: 'user-home',
