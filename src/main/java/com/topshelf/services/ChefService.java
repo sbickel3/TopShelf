@@ -17,10 +17,16 @@ public class ChefService {
 	public ChefService(ChefRepository chefRepository) {
 		this.chefRepository = chefRepository;
 	}
-	
+
+
+
 	public Chef loginChef(String username, String password) {
 		return chefRepository.login(username, password);
 		
+	}
+	
+	public Chef addChef(Chef newChef) {
+		return chefRepository.insertNewChef(newChef);
 	}
 	
 }

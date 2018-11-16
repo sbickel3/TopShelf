@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 @Entity
@@ -17,6 +18,10 @@ import org.springframework.stereotype.Component;
 @Table(name="FRIDGE")
 @SequenceGenerator(name="fridge_seq", sequenceName="fridge_id_seq", allocationSize=1)
 public class Fridge {
+	
+	static {
+		JSONObject jsonIngredients = new JSONObject();
+	}
 
 	@Id
 	@Column(name="id")
@@ -30,7 +35,7 @@ public class Fridge {
 		super();
 	}
 
-	public Fridge(int id, Blob ingredient) {
+	public Fridge(int id, Blob ingredient){
 		super();
 		this.id = id;
 		this.ingredient = ingredient;

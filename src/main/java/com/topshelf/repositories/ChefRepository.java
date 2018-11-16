@@ -30,9 +30,17 @@ public class ChefRepository{
 		return s.get(Chef.class, id);
 	}
 	
-	public void insertNewChef(Chef newChef) {
+	public Chef insertNewChef(Chef newChef) {
 		Session s = sessionFactory.getCurrentSession();
+		Query createNewChef = s.createQuery("from Chef where Chef.username = ? or Chef.email = ?");
+		createNewChef.setParameter(0, newChef.getUsername());
+		createNewChef.setParameter(1, newChef.getEmail());
+		List<Chef> newUserResult = createNewChef.getResultList();
+		if (newUserResult.size() > 0) {
+			return null;
+		}
 		s.save(newChef);
+		return newChef;
 	}
 	
 	public Chef getChefByUsername(String username) {
@@ -45,17 +53,47 @@ public class ChefRepository{
 	
 	public Chef login(String username, String password) {
 		Session s = sessionFactory.getCurrentSession();
-		Query queryChef = s.createQuery("from Chef where Chef.username = ? AND Chef.password = ?");
+		Query queryChef = s.createQuery("from Chef where Chef.username = ? and Chef.password = ?");
 		queryChef.setParameter(0, username);
 		queryChef.setParameter(1, password);
 		List<Chef> queryResult = queryChef.getResultList();
-		if (queryResult == null || queryResult.size() == 0) {
+		if (queryResult.size() == 0) {
 			return null;
 		}else {
 			Chef loggedInChef = queryResult.get(0);
 			return loggedInChef;
 		}
 	}
+	
+	/*@Override
+	public void insertNewChef(String firstname, String lastname, String email, String username, String password, Blob fridge_ingredients, Blob grocery_ingredients) {
+		// retrieve the session from the Session Factory
+		Session session = factory.getCurrentSession();
+		try {
+			// create a Chef object, including objects its reference with (Fridge & GroceryList)
+			Fridge fridge = new Fridge(fridge_ingredients);
+			GroceryList grocery = new GroceryList(grocery_ingredients);
+			Chef chef = new Chef(firstname,lastname,email,username,password, fridge, grocery);
+			
+			// start the transaction
+			session.beginTransaction(); 
+			
+			// persist the chef object into the DB
+			session.save(chef);
+			
+			// commit the transaction 
+			session.getTransaction().commit();
+			
+		} catch(Throwable e) { // will catch all errors and exceptions
+			e.printStackTrace();
+			
+			// rollback to state before transaction started
+			session.getTransaction().rollback();
+		} finally {
+			// always close the session
+			session.close(); 
+		}
+	}*/
 	
 	
 	/*
@@ -104,35 +142,7 @@ public class ChefRepository{
 		return chef;
 	}
 	
-	@Override
-	public void insertNewChef(String firstname, String lastname, String email, String username, String password, Blob fridge_ingredients, Blob grocery_ingredients) {
-		// retrieve the session from the Session Factory
-		Session session = factory.getCurrentSession();
-		try {
-			// create a Chef object, including objects its reference with (Fridge & GroceryList)
-			Fridge fridge = new Fridge(fridge_ingredients);
-			GroceryList grocery = new GroceryList(grocery_ingredients);
-			Chef chef = new Chef(firstname,lastname,email,username,password, fridge, grocery);
-			
-			// start the transaction
-			session.beginTransaction(); 
-			
-			// persist the chef object into the DB
-			session.save(chef);
-			
-			// commit the transaction 
-			session.getTransaction().commit();
-			
-		} catch(Throwable e) { // will catch all errors and exceptions
-			e.printStackTrace();
-			
-			// rollback to state before transaction started
-			session.getTransaction().rollback();
-		} finally {
-			// always close the session
-			session.close(); 
-		}
-	}
+	
 
 	@Override
 	public Chef getChefByUsernameAndPassword(String username, String password) {

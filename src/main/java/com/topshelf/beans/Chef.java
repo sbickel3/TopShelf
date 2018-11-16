@@ -46,7 +46,6 @@ public class Chef {
 	
 	@Column(name="email")
 	@NotNull
-	
 	@Pattern(regexp=".+@.+\\.[a-z]+")
 	private String email;
 	
