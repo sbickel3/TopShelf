@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 @Table(name="GROCERYLIST")
 @SequenceGenerator(name="grocery_seq", sequenceName="grocery_id_seq", allocationSize=1)
 public class GroceryList {
-
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="grocery_seq")
@@ -58,5 +57,27 @@ public class GroceryList {
 	@Override
 	public String toString() {
 		return "GroceryList [id=" + id + ", ingredient=" + ingredient + "]";
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GroceryList other = (GroceryList) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 }

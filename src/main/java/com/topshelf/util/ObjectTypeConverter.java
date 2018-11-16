@@ -2,9 +2,11 @@ package com.topshelf.util;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
+import java.sql.Clob;
 import java.sql.SQLException;
 
 import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialClob;
 import javax.sql.rowset.serial.SerialException;
 
 import org.json.JSONException;
@@ -25,5 +27,20 @@ public class ObjectTypeConverter {
 		JSONObject json = new JSONObject(new String(blobAsBytes));
 		return json;
 	}
+	
+	// convert a JSON object into a Clob object
+	public static Clob convertJSONtoCLOB(JSONObject json) throws SerialException, SQLException, UnsupportedEncodingException {
+		char[] jsonAsChar = json.toString().toCharArray();
+		Clob clob = new SerialClob(jsonAsChar);
+		return clob;
+	}
+	
+	// convert a Clob object into a JSON object
+//	public static JSONObject convertCLOBtoJSON(Clob clob) throws SQLException, JSONException {
+//		char[] clobAsChar = clob.
+//		byte[] blobAsBytes = clob.getBytes(1, (int) blob.length());
+//		JSONObject json = new JSONObject(new String(blobAsBytes));
+//		return json;
+//	}
 
 }

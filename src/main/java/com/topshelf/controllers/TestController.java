@@ -11,7 +11,7 @@ public class TestController {
 	@ResponseBody
 	@GetMapping(produces=MediaType.TEXT_PLAIN_VALUE)
 	public String test() {
-		return "Hello, Spring MVC!";
+		return "Our ec2 is working!";
 	}
 }
 
