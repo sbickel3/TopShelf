@@ -1,8 +1,9 @@
 <h2>Recipe</h2>
 <input type="text" id="searchQuery">
 <button class="btn ts-button" (click)="searchForRecipe()">Submit</button>
-<div *ngIf="!recipes.hits && searchExecuted" class="container">NO RESULTS FOUND</div>
-<ul *ngFor="let recipe of recipes">
+<button class="btn ts-button" (click)="checkValue()">check</button>
+<div *ngIf="!resultList.hits && searchExecuted" class="container">NO RESULTS FOUND</div>
+<ul id="recipeList" *ngFor="let recipe of recipes">
   <ul *ngFor="let hits of recipe.hits">
       <br>
     <img [src]=hits.recipe.image />
@@ -11,7 +12,7 @@
     </li>
     <li><h3><a target="blank" [href]=hits.recipe.url>Recipe Instructions</a></h3></li>
     <li><h3>Ingredients:</h3></li>
-    <ul *ngFor="let ingredient of hits.recipe.ingredientLines">
+    <ul *ngFor="let ingredient of hits.recipe.ingredientLines" >
       <li>{{ ingredient }}</li>
     </ul>
     <br>
