@@ -38,7 +38,7 @@ public class ChefController {
 	}
 	
 	@PostMapping(value="/register", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Chef> addNewChef(@Valid @RequestBody Chef newChef) {
+	public ResponseEntity<Chef> addNewChef(@RequestBody Chef newChef) {
 		Chef registeredChef = chefService.addChef(newChef);
 		
 		if (registeredChef == null) {
