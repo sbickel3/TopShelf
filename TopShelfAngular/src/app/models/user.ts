@@ -1,10 +1,11 @@
 export class User {
     id: number;
-    firstName: string;
-    lastName: number;
+    firstname: string;
+    lastname: number;
     email: string;
     username: string;
     password: string;
-    fridge_id: number;
-    grocery_id: number;
+    fridge: {};
+    grocery: {};
+    authorRecipes: {};
 }
