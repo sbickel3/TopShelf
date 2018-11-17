@@ -28,29 +28,24 @@ public class ChefController {
 		this.chefService = chefService;
 	}
 	
-	@GetMapping(value="/login", produces=MediaType.TEXT_PLAIN_VALUE)
-	public String test() {
-		return "Our ec2 is working!";
+	@PostMapping(value="/login", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Chef> login(@RequestBody String[] chefCredentials) {
+		Chef loggedInChef = chefService.loginChef(chefCredentials[0], chefCredentials[1]);
+		if (loggedInChef == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<Chef>(loggedInChef, HttpStatus.OK);
 	}
 	
-//	@GetMapping(value="/login", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<Boolean> login(@RequestBody String[] chefCredentials) {
-//		Chef loggedInChef = chefService.loginChef(chefCredentials[0], chefCredentials[1]);
-//		if (loggedInChef == null) {
-//			return new ResponseEntity<Boolean>(false, HttpStatus.NOT_FOUND);
-//		}
-//		
-//		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-//	}
-//	
-//	@GetMapping(value="/register", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<Chef> addNewChef(@RequestBody Chef newChef) {
-//		Chef registeredChef = chefService.addChef(newChef);
-//		
-//		if (registeredChef == null) {
-//			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-//		}
-//		return new ResponseEntity<Chef>(registeredChef, HttpStatus.CREATED);
-//	}
+	@PostMapping(value="/register", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> addNewChef(@RequestBody Chef newChef) {
+		Chef registeredChef = chefService.addChef(newChef);
+		
+		if (registeredChef == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+		}
+		return new ResponseEntity<Boolean>(true, HttpStatus.CREATED);
+	}
 	
 }

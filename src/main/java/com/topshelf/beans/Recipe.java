@@ -126,6 +126,25 @@ public class Recipe {
 		this.chef = chef;
 		this.ingredient = ingredient;
 	}
+	
+	
+
+	public Recipe(int id, @NotNull String name, Chef chef, @NotNull Blob ingredient) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.chef = chef;
+		this.ingredient = ingredient;
+	}
+	
+	
+
+	public Recipe(@NotNull String name, Chef chef, @NotNull Blob ingredient) {
+		super();
+		this.name = name;
+		this.chef = chef;
+		this.ingredient = ingredient;
+	}
 
 	public int getId() {
 		return id;
@@ -181,10 +200,6 @@ public class Recipe {
 
 	public void setRecipeChefOwners(Set<Chef> recipeChefOwners) {
 		this.recipeChefOwners = recipeChefOwners;
-	}
-
-	
-	
-	
+	}	
 	
 }

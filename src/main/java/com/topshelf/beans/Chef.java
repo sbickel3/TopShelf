@@ -109,6 +109,30 @@ public class Chef {
 		this.grocery = grocery;
 	}
 
+	public Chef(int id, @NotNull String firstname, @NotNull String lastname,
+			@NotNull @Pattern(regexp = ".+@.+\\.[a-z]+") String email,
+			@NotNull @Size(min = 4, max = 16) String username, @Size(min = 4) String password) {
+		super();
+		this.id = id;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+	}
+
+	public Chef(@NotNull String firstname, @NotNull String lastname,
+			@NotNull @Pattern(regexp = ".+@.+\\.[a-z]+") String email,
+			@NotNull @Size(min = 4, max = 16) String username, @Size(min = 4) String password) {
+		super();
+		this.id = id;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+	}
+
 	public int getId() {
 		return id;
 	}
