@@ -1,19 +1,16 @@
 package com.topshelf.repositories;
 
-import java.sql.Blob;
 import java.util.List;
 
 import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.topshelf.beans.Chef;
-import com.topshelf.beans.Fridge;
-import com.topshelf.beans.GroceryList;
 
 @Repository
 public class ChefRepository{
@@ -29,10 +26,10 @@ public class ChefRepository{
 		Session s = sessionFactory.getCurrentSession();
 		return s.get(Chef.class, id);
 	}
-	
+	@Transactional
 	public Chef insertNewChef(Chef newChef) {
 		Session s = sessionFactory.getCurrentSession();
-		Query createNewChef = s.createQuery("from Chef where Chef.username = ? or Chef.email = ?");
+		Query createNewChef = s.createQuery("from Chef c where c.username = ? or c.email = ?");
 		createNewChef.setParameter(0, newChef.getUsername());
 		createNewChef.setParameter(1, newChef.getEmail());
 		List<Chef> newUserResult = createNewChef.getResultList();
@@ -45,7 +42,7 @@ public class ChefRepository{
 	
 	public Chef getChefByUsername(String username) {
 		Session s = sessionFactory.getCurrentSession();
-		Query queryChef = s.createQuery("from Chef where Chef.username = ?");
+		Query queryChef = s.createQuery("from Chef c where c.username = ?");
 		queryChef.setParameter(0, username);
 		List<Chef> desiredChef = queryChef.getResultList();
 		return desiredChef.get(0);
@@ -53,7 +50,7 @@ public class ChefRepository{
 	
 	public Chef login(String username, String password) {
 		Session s = sessionFactory.getCurrentSession();
-		Query queryChef = s.createQuery("from Chef where Chef.username = ? and Chef.password = ?");
+		Query queryChef = s.createQuery("from Chef c where c.username = ? and c.password = ?");
 		queryChef.setParameter(0, username);
 		queryChef.setParameter(1, password);
 		List<Chef> queryResult = queryChef.getResultList();

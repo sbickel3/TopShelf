@@ -1,28 +1,21 @@
 package com.topshelf.beans;
 
 import java.sql.Blob;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 @Entity
 @Component
-@Table(name="FRIDGE")
+@Table(name="Fridge")
 @SequenceGenerator(name="fridge_seq", sequenceName="fridge_id_seq", allocationSize=1)
 public class Fridge {
-	
-	static {
-		JSONObject jsonIngredients = new JSONObject();
-	}
-
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="fridge_seq")

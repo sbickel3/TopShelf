@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value="/test")
 public class TestController {
 	@ResponseBody
-	@GetMapping(produces=MediaType.TEXT_PLAIN_VALUE)
+	@GetMapping(value="/fun",produces=MediaType.TEXT_PLAIN_VALUE)
 	public String test() {
 		return "Our ec2 is working!";
 	}

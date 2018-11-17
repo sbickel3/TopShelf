@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Entity
 @Component
-@Table(name="GROCERYLIST")
+@Table(name="Grocerylist")
 @SequenceGenerator(name="grocery_seq", sequenceName="grocery_id_seq", allocationSize=1)
 public class GroceryList {
 	@Id

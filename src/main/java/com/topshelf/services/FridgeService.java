@@ -2,6 +2,7 @@ package com.topshelf.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.topshelf.beans.Fridge;
 import com.topshelf.repositories.FridgeRepository;
@@ -15,6 +16,7 @@ public class FridgeService {
 		this.fridgeRepository = fridgeRepository;
 	}
 	
+	@Transactional
 	public Fridge newChefFridge() {
 		Fridge fridge = new Fridge();
 		return fridgeRepository.addFridge(fridge);

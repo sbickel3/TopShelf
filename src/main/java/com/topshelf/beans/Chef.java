@@ -1,7 +1,5 @@
 package com.topshelf.beans;
 
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -25,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Component
-@Table(name="CHEF", uniqueConstraints=
+@Table(name="Chef", uniqueConstraints=
 @UniqueConstraint(columnNames={"email", "username"}))
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @SequenceGenerator(name="chef_seq", sequenceName="chef_id_seq", allocationSize=1)
@@ -59,20 +55,26 @@ public class Chef {
 	@Size(min=4)
 	private String password;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="fridge_id")
-	private Fridge fridge;
+	@Column(name="fridge_id")
+	private int fridgeId;
 	
-	@OneToOne(cascade= CascadeType.ALL)
-	@JoinColumn(name="grocery_id")
-	private GroceryList grocery;
+	@Column(name="grocery_id")
+	private int groceryId;
 	
-	@ManyToMany(cascade= {CascadeType.MERGE, CascadeType.PERSIST})
-	@JoinTable(name="authorRecipes",
-				joinColumns = @JoinColumn(name = "chef_id"),
-				inverseJoinColumns = @JoinColumn(name = "recipe_id")
-	)
-	private Set<Recipe> authorRecipes;
+//	@OneToOne(cascade=CascadeType.ALL)
+//	@JoinColumn(name="fridge_id")
+//	private Fridge fridge;
+//	
+//	@OneToOne(cascade= CascadeType.ALL)
+//	@JoinColumn(name="grocery_id")
+//	private GroceryList grocery;
+//	
+//	@ManyToMany(cascade= {CascadeType.MERGE, CascadeType.PERSIST})
+//	@JoinTable(name="authorRecipes",
+//				joinColumns = @JoinColumn(name = "chef_id"),
+//				inverseJoinColumns = @JoinColumn(name = "recipe_id")
+//	)
+//	private Set<Recipe> authorRecipes;
 
 	public Chef() {
 		super();
@@ -80,8 +82,8 @@ public class Chef {
 
 	public Chef(int id, @NotNull String firstname, @NotNull String lastname,
 			@NotNull @Pattern(regexp = ".+@.+\\.[a-z]+") String email,
-			@NotNull @Size(min = 4, max = 16) String username, @Size(min = 4) String password, Fridge fridge,
-			GroceryList grocery, Set<Recipe> authorRecipes) {
+			@NotNull @Size(min = 4, max = 16) String username, @Size(min = 4) String password, int fridgeId,
+			int groceryId) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -89,24 +91,8 @@ public class Chef {
 		this.email = email;
 		this.username = username;
 		this.password = password;
-		this.fridge = fridge;
-		this.grocery = grocery;
-		this.authorRecipes = authorRecipes;
-	}
-
-	public Chef(int id, @NotNull String firstname, @NotNull String lastname,
-			@NotNull @Pattern(regexp = ".+@.+\\.[a-z]+") String email,
-			@NotNull @Size(min = 4, max = 16) String username, @Size(min = 4) String password, Fridge fridge,
-			GroceryList grocery) {
-		super();
-		this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.email = email;
-		this.username = username;
-		this.password = password;
-		this.fridge = fridge;
-		this.grocery = grocery;
+		this.fridgeId = fridgeId;
+		this.groceryId = groceryId;
 	}
 
 	public Chef(int id, @NotNull String firstname, @NotNull String lastname,
@@ -125,7 +111,6 @@ public class Chef {
 			@NotNull @Pattern(regexp = ".+@.+\\.[a-z]+") String email,
 			@NotNull @Size(min = 4, max = 16) String username, @Size(min = 4) String password) {
 		super();
-		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
@@ -181,44 +166,37 @@ public class Chef {
 		this.password = password;
 	}
 
-	public Fridge getFridge() {
-		return fridge;
+	public int getFridge() {
+		return fridgeId;
 	}
 
-	public void setFridge(Fridge fridge) {
-		this.fridge = fridge;
+	public void setFridge(int fridgeId) {
+		this.fridgeId = fridgeId;
 	}
 
-	public GroceryList getGrocery() {
-		return grocery;
+	public int getGrocery() {
+		return groceryId;
 	}
 
-	public void setGrocery(GroceryList grocery) {
-		this.grocery = grocery;
-	}
-
-	public Set<Recipe> getAuthorRecipes() {
-		return authorRecipes;
-	}
-
-	public void setAuthorRecipes(Set<Recipe> authorRecipes) {
-		this.authorRecipes = authorRecipes;
+	public void setGrocery(int groceryId) {
+		this.groceryId = groceryId;
 	}
 
 	@Override
 	public String toString() {
 		return "Chef [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-				+ ", username=" + username + ", password=" + password + ", fridge=" + fridge + ", grocery=" + grocery
-				+ ", authorRecipes=" + authorRecipes + "]";
+				+ ", username=" + username + ", password=" + password + ", fridgeId=" + fridgeId + ", groceryId="
+				+ groceryId + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((authorRecipes == null) ? 0 : authorRecipes.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
+		result = prime * result + fridgeId;
+		result = prime * result + groceryId;
 		result = prime * result + id;
 		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
@@ -235,11 +213,6 @@ public class Chef {
 		if (getClass() != obj.getClass())
 			return false;
 		Chef other = (Chef) obj;
-		if (authorRecipes == null) {
-			if (other.authorRecipes != null)
-				return false;
-		} else if (!authorRecipes.equals(other.authorRecipes))
-			return false;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -249,6 +222,10 @@ public class Chef {
 			if (other.firstname != null)
 				return false;
 		} else if (!firstname.equals(other.firstname))
+			return false;
+		if (fridgeId != other.fridgeId)
+			return false;
+		if (groceryId != other.groceryId)
 			return false;
 		if (id != other.id)
 			return false;
@@ -269,6 +246,5 @@ public class Chef {
 			return false;
 		return true;
 	}
-	
 
 }

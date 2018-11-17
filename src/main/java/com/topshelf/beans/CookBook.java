@@ -1,19 +1,17 @@
 package com.topshelf.beans;
 
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-@Component
-@Entity
-@Table(name="cookbook")
 public class CookBook {
-	@Column(name="chef_id")
+	
 	private int chefId;
 	
-	@Column(name="recipe_id")
+	
 	private int recipeId;
 
 	public CookBook() {
