@@ -117,6 +117,14 @@ public class Chef {
 		this.username = username;
 		this.password = password;
 	}
+	
+	
+
+	public Chef(@NotNull @Size(min = 4, max = 16) String username, @Size(min = 4) String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
 
 	public int getId() {
 		return id;
@@ -166,19 +174,19 @@ public class Chef {
 		this.password = password;
 	}
 
-	public int getFridge() {
+	public int getFridgeId() {
 		return fridgeId;
 	}
 
-	public void setFridge(int fridgeId) {
+	public void setFridgeId(int fridgeId) {
 		this.fridgeId = fridgeId;
 	}
 
-	public int getGrocery() {
+	public int getGroceryId() {
 		return groceryId;
 	}
 
-	public void setGrocery(int groceryId) {
+	public void setGroceryId(int groceryId) {
 		this.groceryId = groceryId;
 	}
 

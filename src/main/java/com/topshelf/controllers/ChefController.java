@@ -1,5 +1,13 @@
 package com.topshelf.controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.sql.rowset.serial.SerialException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,21 +31,21 @@ public class ChefController {
 	}
 	
 	@PostMapping(value="/login", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Chef> login(@RequestBody String[] chefCredentials) {
-		Chef loggedInChef = chefService.loginChef(chefCredentials[0], chefCredentials[1]);
-		if (loggedInChef == null) {
+	public ResponseEntity<List<Object>> login(@RequestBody Chef chefCredentials) throws SQLException, JSONException {
+		List<Object> loggedInChefInformation = chefService.loginChef(chefCredentials.getUsername(), chefCredentials.getPassword());
+		if (loggedInChefInformation == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity<Chef>(loggedInChef, HttpStatus.OK);
+		return new ResponseEntity<List<Object>>(loggedInChefInformation, HttpStatus.OK);
 	}
 	
 	@PostMapping(value="/register", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Boolean> addNewChef(@RequestBody Chef newChef) {
+	public ResponseEntity<Boolean> addNewChef(@RequestBody Chef newChef) throws SerialException, UnsupportedEncodingException, SQLException {
 		Chef registeredChef = chefService.addChef(newChef);
 		
 		if (registeredChef == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+			return new ResponseEntity<>(false, HttpStatus.NOT_ACCEPTABLE);
 		}
 		return new ResponseEntity<Boolean>(true, HttpStatus.CREATED);
 	}

@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialClob;
@@ -42,5 +44,24 @@ public class ObjectTypeConverter {
 //		JSONObject json = new JSONObject(new String(blobAsBytes));
 //		return json;
 //	}
+	
+	// convert a Blob To Byte Array
+	public static byte[] convertBlobToByteArray(Blob blob) throws SQLException, JSONException {
+		byte[] blobAsBytes = blob.getBytes(1, (int) blob.length());
+		return blobAsBytes;
+	}
+	
+	
+	public static HashMap<String,Integer> convertBlobToHashMap(Blob blob) throws SQLException, JSONException{
+		JSONObject json = convertBLOBtoJSON(blob);
+		
+		HashMap<String, Integer> map = new HashMap<>();
+		Iterator<String> keys = json.keys();
+		while(keys.hasNext()) {
+			String key = (String) keys.next();
+			map.put(key, (Integer) json.get(key));
+		}
+		return map;
+	}
 
 }

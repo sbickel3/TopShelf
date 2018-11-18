@@ -1,5 +1,10 @@
 package com.topshelf.services;
 
+import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
+
+import javax.sql.rowset.serial.SerialException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +22,12 @@ public class FridgeService {
 	}
 	
 	@Transactional
-	public Fridge newChefFridge() {
+	public Fridge newChefFridge() throws SerialException, UnsupportedEncodingException, SQLException {
 		Fridge fridge = new Fridge();
 		return fridgeRepository.addFridge(fridge);
+	}
+	
+	public Fridge getFridge(int id) {
+		return fridgeRepository.getFridgeById(id);
 	}
 }

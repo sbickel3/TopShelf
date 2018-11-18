@@ -48,6 +48,7 @@ public class ChefRepository{
 		return desiredChef.get(0);
 	}
 	
+	@Transactional
 	public Chef login(String username, String password) {
 		Session s = sessionFactory.getCurrentSession();
 		Query queryChef = s.createQuery("from Chef c where c.username = ? and c.password = ?");

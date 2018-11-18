@@ -1,14 +1,23 @@
 package com.topshelf.services;
 
+import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.sql.rowset.serial.SerialException;
+
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.topshelf.beans.Chef;
 import com.topshelf.beans.Fridge;
 import com.topshelf.beans.GroceryList;
 import com.topshelf.repositories.ChefRepository;
+import com.topshelf.util.ObjectTypeConverter;
 
 @Service
 
@@ -26,16 +35,26 @@ public class ChefService {
 	}
 
 
-	public Chef loginChef(String username, String password) {
-		return chefRepository.login(username, password);
-		
+	@Transactional
+	public List<Object> loginChef(String username, String password) throws SQLException, JSONException {
+		Chef loggedInChef = chefRepository.login(username, password);
+		if (loggedInChef == null) {
+			return null;
+		}
+		HashMap<String,Integer> loggedInChefFridgeIngredients = ObjectTypeConverter.convertBlobToHashMap(fridgeService.getFridge(loggedInChef.getFridgeId()).getIngredient());
+		HashMap<String,Integer> loggedInChefGroceryListIngredients = ObjectTypeConverter.convertBlobToHashMap(groceryListService.getGroceryList(loggedInChef.getGroceryId()).getIngredient());
+		List<Object> list = new ArrayList<Object>();
+		list.add(loggedInChef);
+		list.add(loggedInChefFridgeIngredients);
+		list.add(loggedInChefGroceryListIngredients);
+		return list;
 	}
 	@Transactional
-	public Chef addChef(Chef newChef) {
+	public Chef addChef(Chef newChef) throws SerialException, UnsupportedEncodingException, SQLException {
 		Fridge fridge = fridgeService.newChefFridge();
 		GroceryList list = groceryListService.newChefGroceryList();
-		newChef.setFridge(fridge.getId());
-		newChef.setGrocery(list.getId());
+		newChef.setFridgeId(fridge.getId());
+		newChef.setGroceryId(list.getId());
 		return chefRepository.insertNewChef(newChef);
 	}
 	
