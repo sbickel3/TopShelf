@@ -15,16 +15,17 @@ import com.topshelf.repositories.FridgeRepository;
 @Service
 public class FridgeService {
 	private FridgeRepository fridgeRepository;
+	private Fridge fridge;
 	
 	@Autowired
-	public FridgeService(FridgeRepository fridgeRepository) {
+	public FridgeService(FridgeRepository fridgeRepository, Fridge fridge) {
 		this.fridgeRepository = fridgeRepository;
+		this.fridge = fridge;
 	}
 	
 	@Transactional
 	public Fridge newChefFridge() throws SerialException, UnsupportedEncodingException, SQLException {
-		Fridge fridge = new Fridge();
-		return fridgeRepository.addFridge(fridge);
+		return fridgeRepository.addFridge(this.fridge);
 	}
 	
 	public Fridge getFridge(int id) {

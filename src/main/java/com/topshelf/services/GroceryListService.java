@@ -16,14 +16,15 @@ import com.topshelf.repositories.GroceryListRepository;
 @Service
 public class GroceryListService {
 	private GroceryListRepository groceryListRepository;
+	private GroceryList newList;
 	
 	@Autowired
-	public GroceryListService(GroceryListRepository groceryListRepository) {
+	public GroceryListService(GroceryListRepository groceryListRepository, GroceryList newList) {
 		this.groceryListRepository = groceryListRepository;
+		this.newList = newList;
 	}
 	@Transactional
 	public GroceryList newChefGroceryList() throws SerialException, UnsupportedEncodingException, SQLException {
-		GroceryList newList = new GroceryList();
 		return groceryListRepository.addGroceryList(newList);
 	}
 	

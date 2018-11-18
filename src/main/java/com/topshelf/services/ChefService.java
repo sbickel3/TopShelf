@@ -49,6 +49,7 @@ public class ChefService {
 		list.add(loggedInChefGroceryListIngredients);
 		return list;
 	}
+	
 	@Transactional
 	public Chef addChef(Chef newChef) throws SerialException, UnsupportedEncodingException, SQLException {
 		Fridge fridge = fridgeService.newChefFridge();
@@ -57,5 +58,4 @@ public class ChefService {
 		newChef.setGroceryId(list.getId());
 		return chefRepository.insertNewChef(newChef);
 	}
-	
 }

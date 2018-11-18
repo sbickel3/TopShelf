@@ -68,3 +68,27 @@ create table CookBook (
     foreign key (recipe_id) references Recipe(id),
     constraint unique_chef_cookbook unique (chef_id, recipe_id)
     );
+
+
+    update Fridge
+set ingredient = utl_raw.cast_to_raw('
+
+{
+    "mushroom": 2,
+    "tomato": 4
+}')
+
+where id = 32;
+
+update GroceryList
+set ingredient = utl_raw.cast_to_raw('
+
+{
+    "mushroom": 92,
+    "tomato": 456
+}')
+
+where id = 32;
+
+
+commit;
