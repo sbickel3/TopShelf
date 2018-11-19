@@ -1,5 +1,5 @@
 
 export const environment = {
   production: false,
-  apiURL: 'http://ec2-3-16-172-57.us-east-2.compute.amazonaws.com/'
+  apiURL: 'http://Topshelf-env-1.crxghq7ykz.us-east-2.elasticbeanstalk.com/'
 };
