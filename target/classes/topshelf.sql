@@ -72,20 +72,34 @@ create table CookBook (
 
     update Fridge
 set ingredient = utl_raw.cast_to_raw('
-
 {
-    "mushroom": 2,
-    "tomato": 4
+    "flour": {
+        "quantity": "2",
+        "unit": "cup",
+        "ingredient": "flour"
+    },
+    "olive oil": {
+        "quantity": "1/2",
+        "unit": "teaspoon",
+        "ingredient": "olive oil"
+    }
 }')
 
 where id = 32;
 
 update GroceryList
 set ingredient = utl_raw.cast_to_raw('
-
 {
-    "mushroom": 92,
-    "tomato": 456
+    "flour": {
+        "quantity": "2",
+        "unit": "cup",
+        "ingredient": "flour"
+    },
+    "olive oil": {
+        "quantity": "1/2",
+        "unit": "teaspoon",
+        "ingredient": "olive oil"
+    }
 }')
 
 where id = 32;

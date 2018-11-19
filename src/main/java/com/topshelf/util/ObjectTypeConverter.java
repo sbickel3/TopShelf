@@ -4,8 +4,11 @@ import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialClob;
@@ -62,6 +65,39 @@ public class ObjectTypeConverter {
 			map.put(key, (Integer) json.get(key));
 		}
 		return map;
+	}
+	
+	public static List<Ingredient> convertBlobToList(Blob blob) throws SQLException, JSONException {
+		JSONObject bigJson = convertBLOBtoJSON(blob);
+		
+		List<Ingredient> list = new ArrayList<>();
+		Iterator<String> bigKeys = bigJson.keys(); 
+		while(bigKeys.hasNext()) {
+			String key = (String) bigKeys.next();
+			JSONObject json = (JSONObject) bigJson.get(key);
+			
+			Iterator<String> littleKeys = json.keys();
+			Ingredient ingr = new Ingredient();
+			while(littleKeys.hasNext()) {
+				String miniKey = (String) littleKeys.next();
+				String value = (String) json.get(miniKey);
+				switch(miniKey) {
+				case "quantity":
+					ingr.setQuantity(value);
+					break;
+				case "unit":
+					ingr.setUnit(value);
+					break;
+				case "ingredient":
+					ingr.setIngredientName(value);
+					break;
+				}
+			}
+			list.add(ingr);
+		}
+		
+		return list;
+		
 	}
 
 }

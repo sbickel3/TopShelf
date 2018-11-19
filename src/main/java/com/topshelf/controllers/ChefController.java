@@ -35,7 +35,7 @@ public class ChefController {
 	public ResponseEntity<List<Object>> login(@RequestBody Chef chefCredentials) throws SQLException, JSONException {
 		List<Object> loggedInChefInformation = chefService.loginChef(chefCredentials.getUsername(), chefCredentials.getPassword());
 		if (loggedInChefInformation == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 		
 		return new ResponseEntity<List<Object>>(loggedInChefInformation, HttpStatus.OK);
