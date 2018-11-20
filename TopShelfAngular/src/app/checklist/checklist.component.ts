@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-checklist',
@@ -12,6 +14,11 @@ export class ChecklistComponent implements OnInit {
   myInfo: User[];
   myFridge: User[];
   myGrocery: User[];
+
+  // info for tables
+  displayedColumns: string[] = ['select', 'quantity', 'unit', 'ingredient'];
+  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  selection = new SelectionModel<PeriodicElement>(true, []);
 
   constructor() {
     this.user = JSON.parse(localStorage.getItem('user'));
