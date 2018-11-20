@@ -26,8 +26,7 @@ export class UserService {
 
   registerSucess: boolean = false;
 
-  constructor(private http: HttpClient, private router: Router) {
-  }
+  constructor(private http: HttpClient, private router: Router) {}
 
   loginUser(user: User): boolean {
     console.log(`Attempting to login user: ${user.username}`);

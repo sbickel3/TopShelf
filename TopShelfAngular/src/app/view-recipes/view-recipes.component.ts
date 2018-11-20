@@ -27,8 +27,8 @@ export class ViewRecipesComponent implements OnInit, OnDestroy {
     console.log("SEARCHING")
     this.searchExecuted = true;
     let searchQuery = (<HTMLInputElement>document.getElementById('searchQuery')).value;
-
     this.subscription = this.recipesService.getRecipes(searchQuery).subscribe(apiRecipes => this.recipes.push(apiRecipes));
+    
   }
 
   parseIngredients(ingr: string) {

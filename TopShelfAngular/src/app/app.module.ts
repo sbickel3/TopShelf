@@ -20,6 +20,7 @@ import { ChecklistComponent } from './checklist/checklist.component';
 import { PossibleRecipesComponent } from './possible-recipes/possible-recipes.component';
 import { AboutComponent } from './about/about.component';
 import { UserService } from './user.service';
+import { UserGuardService } from './user-guard.service';
 
 @NgModule({
   declarations: [
@@ -60,12 +61,12 @@ import { UserService } from './user.service';
       {
         path: 'add-recipes',
         component: AddRecipesComponent,
-        canActivate: [UserService]
+        canActivate: [UserGuardService]
       },
       {
         path: 'checklist',
         component: ChecklistComponent,
-        canActivate: [UserService]
+        canActivate: [UserGuardService]
       },
       {
         path: 'featured-recipe',
@@ -73,15 +74,18 @@ import { UserService } from './user.service';
       },
       {
         path: 'possible-recipes',
-        component: PossibleRecipesComponent
+        component: PossibleRecipesComponent,
+        canActivate: [UserGuardService]
       },
       {
         path: 'user-home',
-        component: UserHomeComponent
+        component: UserHomeComponent,
+        canActivate: [UserGuardService]
       },
       {
         path: 'view-recipes',
-        component: ViewRecipesComponent
+        component: ViewRecipesComponent,
+        canActivate: [UserGuardService]
       },
       {
         path: 'about',
