@@ -1,5 +1,6 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 body {
     font-family: 'Montserrat';font-size: 22px;

@@ -17,8 +17,8 @@ export class ChecklistComponent implements OnInit {
 
   // info for tables
   displayedColumns: string[] = ['select', 'quantity', 'unit', 'ingredient'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
+  dataSource = new MatTableDataSource<User>(this.myFridge);
+  selection = new SelectionModel<User>(true, []);
 
   constructor() {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -31,6 +31,23 @@ export class ChecklistComponent implements OnInit {
   }
 
   ngOnInit() {
+    let displayedColumns: string[] = ['select', 'quantity', 'unit', 'ingredient'];
+    let dataSource = new MatTableDataSource<User>(this.myFridge);
+    let selection = new SelectionModel<User>(true, []);
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
 }

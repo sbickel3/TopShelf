@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule }from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule, MatButtonModule, MatCheckboxModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { UiModule } from './ui/ui.module';
@@ -41,9 +43,13 @@ import { UserGuardService } from './user-guard.service';
   ],
   imports: [
     BrowserModule,
+    MatTableModule,
+    MatButtonModule,
+    MatCheckboxModule,
     UiModule,
     FormsModule, // necessary for two-way data binding using ngModel
     HttpClientModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
       {
