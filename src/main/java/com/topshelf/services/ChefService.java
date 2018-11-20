@@ -35,21 +35,6 @@ public class ChefService {
 		this.groceryListService = groceryListService;
 	}
 
-
-//	@Transactional
-//	public List<Object> loginChef(String username, String password) throws SQLException, JSONException, UnsupportedEncodingException {
-//		Chef loggedInChef = chefRepository.login(username, password);
-//		if (loggedInChef == null) {
-//			return null;
-//		}
-//		ArrayList<Ingredient> loggedInChefFridgeIngredients = ObjectTypeConverter.convertBlobToList(fridgeService.getFridge(loggedInChef.getFridgeId()).getIngredientBlob());
-//		ArrayList<Ingredient> loggedInChefGroceryListIngredients = ObjectTypeConverter.convertBlobToList(groceryListService.getGroceryList(loggedInChef.getGroceryId()).getIngredientBlob());
-//		List<Object> list = new ArrayList<Object>();
-//		list.add(loggedInChef);
-//		list.add(loggedInChefFridgeIngredients);
-//		list.add(loggedInChefGroceryListIngredients);
-//		return list;
-//	}
 	
 	@Transactional
 	public User loginChef(String username, String password) throws SQLException, JSONException, UnsupportedEncodingException {
@@ -58,14 +43,16 @@ public class ChefService {
 			return null;
 		}
 		
-		Fridge chefFridge = fridgeService.getFridge(loggedInChef.getFridgeId());
-		chefFridge.setIngredient(ObjectTypeConverter.convertBlobToList(chefFridge.getIngredientBlob()));
-		chefFridge.setIngredientBlob(null);
+		Fridge fridge = fridgeService.getFridge(loggedInChef.getFridgeId());
+		GroceryList grocery = groceryListService.getGroceryList(loggedInChef.getGroceryId());
 		
-		GroceryList chefGrocery = groceryListService.getGroceryList(loggedInChef.getGroceryId());
-		chefGrocery.setIngredient(ObjectTypeConverter.convertBlobToList(chefGrocery.getIngredientBlob()));
-		chefGrocery.setIngredientBlob(null);
-
+		Fridge chefFridge = new Fridge(); 
+		chefFridge.setId(fridge.getId());
+		chefFridge.setIngredient(ObjectTypeConverter.convertBlobToList(fridge.getIngredientBlob()));
+		
+		GroceryList chefGrocery = new GroceryList();
+		chefGrocery.setId(grocery.getId());
+		chefGrocery.setIngredient(ObjectTypeConverter.convertBlobToList(grocery.getIngredientBlob()));
 		
 		return new User(loggedInChef, chefFridge, chefGrocery);
 	}
