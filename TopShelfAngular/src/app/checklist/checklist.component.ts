@@ -16,9 +16,9 @@ export class ChecklistComponent implements OnInit {
   myGrocery: User[];
 
   // info for tables
-  displayedColumns: string[] = ['select', 'quantity', 'unit', 'ingredient'];
-  dataSource = new MatTableDataSource<User>(this.myFridge);
-  selection = new SelectionModel<User>(true, []);
+  displayedColumns: string[];
+  dataSource;
+  selection;
 
   constructor() {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -28,12 +28,12 @@ export class ChecklistComponent implements OnInit {
     console.log(this.myInfo);
     console.log(this.myFridge);
     console.log(this.myGrocery);
+    this.displayedColumns = ['select', 'quantity', 'unit', 'ingredient']
+    this.dataSource = new MatTableDataSource<User>(this.myFridge)
+    this.selection = new SelectionModel<User>(true, [])
   }
 
   ngOnInit() {
-    let displayedColumns: string[] = ['select', 'quantity', 'unit', 'ingredient'];
-    let dataSource = new MatTableDataSource<User>(this.myFridge);
-    let selection = new SelectionModel<User>(true, []);
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
