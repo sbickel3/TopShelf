@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.topshelf.beans.Chef;
 import com.topshelf.services.ChefService;
+import com.topshelf.util.User;
 
 @CrossOrigin
 @RestController
@@ -31,14 +32,24 @@ public class ChefController {
 		this.chefService = chefService;
 	}
 	
+//	@PostMapping(value="/login", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<List<Object>> login(@RequestBody Chef chefCredentials) throws SQLException, JSONException, UnsupportedEncodingException {
+//		List<Object> loggedInChefInformation = chefService.loginChef(chefCredentials.getUsername(), chefCredentials.getPassword());
+//		if (loggedInChefInformation == null) {
+//			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//		}
+//		
+//		return new ResponseEntity<List<Object>>(loggedInChefInformation, HttpStatus.OK);
+//	}
+	
 	@PostMapping(value="/login", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Object>> login(@RequestBody Chef chefCredentials) throws SQLException, JSONException, UnsupportedEncodingException {
-		List<Object> loggedInChefInformation = chefService.loginChef(chefCredentials.getUsername(), chefCredentials.getPassword());
-		if (loggedInChefInformation == null) {
+	public ResponseEntity<User> login(@RequestBody Chef chef) throws SQLException, JSONException, UnsupportedEncodingException {
+		User loggedInUser = chefService.loginChef(chef.getUsername(),  chef.getPassword());
+		if (loggedInUser == null) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 		
-		return new ResponseEntity<List<Object>>(loggedInChefInformation, HttpStatus.OK);
+		return new ResponseEntity<User>(loggedInUser, HttpStatus.OK);
 	}
 	
 	@PostMapping(value="/register", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)

@@ -19,9 +19,9 @@ import com.topshelf.beans.GroceryList;
 import com.topshelf.repositories.ChefRepository;
 import com.topshelf.util.Ingredient;
 import com.topshelf.util.ObjectTypeConverter;
+import com.topshelf.util.User;
 
 @Service
-
 public class ChefService {
 
 	private ChefRepository chefRepository;
@@ -36,19 +36,38 @@ public class ChefService {
 	}
 
 
+//	@Transactional
+//	public List<Object> loginChef(String username, String password) throws SQLException, JSONException, UnsupportedEncodingException {
+//		Chef loggedInChef = chefRepository.login(username, password);
+//		if (loggedInChef == null) {
+//			return null;
+//		}
+//		ArrayList<Ingredient> loggedInChefFridgeIngredients = ObjectTypeConverter.convertBlobToList(fridgeService.getFridge(loggedInChef.getFridgeId()).getIngredientBlob());
+//		ArrayList<Ingredient> loggedInChefGroceryListIngredients = ObjectTypeConverter.convertBlobToList(groceryListService.getGroceryList(loggedInChef.getGroceryId()).getIngredientBlob());
+//		List<Object> list = new ArrayList<Object>();
+//		list.add(loggedInChef);
+//		list.add(loggedInChefFridgeIngredients);
+//		list.add(loggedInChefGroceryListIngredients);
+//		return list;
+//	}
+	
 	@Transactional
-	public List<Object> loginChef(String username, String password) throws SQLException, JSONException, UnsupportedEncodingException {
+	public User loginChef(String username, String password) throws SQLException, JSONException, UnsupportedEncodingException {
 		Chef loggedInChef = chefRepository.login(username, password);
 		if (loggedInChef == null) {
 			return null;
 		}
-		ArrayList<Ingredient> loggedInChefFridgeIngredients = ObjectTypeConverter.convertBlobToList(fridgeService.getFridge(loggedInChef.getFridgeId()).getIngredientBlob());
-		ArrayList<Ingredient> loggedInChefGroceryListIngredients = ObjectTypeConverter.convertBlobToList(groceryListService.getGroceryList(loggedInChef.getGroceryId()).getIngredientBlob());
-		List<Object> list = new ArrayList<Object>();
-		list.add(loggedInChef);
-		list.add(loggedInChefFridgeIngredients);
-		list.add(loggedInChefGroceryListIngredients);
-		return list;
+		
+		Fridge chefFridge = fridgeService.getFridge(loggedInChef.getFridgeId());
+		chefFridge.setIngredient(ObjectTypeConverter.convertBlobToList(chefFridge.getIngredientBlob()));
+		chefFridge.setIngredientBlob(null);
+		
+		GroceryList chefGrocery = groceryListService.getGroceryList(loggedInChef.getGroceryId());
+		chefGrocery.setIngredient(ObjectTypeConverter.convertBlobToList(chefGrocery.getIngredientBlob()));
+		chefGrocery.setIngredientBlob(null);
+
+		
+		return new User(loggedInChef, chefFridge, chefGrocery);
 	}
 	
 	@Transactional
