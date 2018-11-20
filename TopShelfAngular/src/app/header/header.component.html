@@ -27,9 +27,9 @@
       </li>
     </ul>
   </div>
-  <ng-template #anonUser>
+  <ng-template #noUser>
     <a class="btn btn-secondary" routerLink="/register" role="button">Register</a>
     <a class="btn btn-light" routerLink="/login" role="button">Log In</a>
   </ng-template>
-  <a *ngIf="isLoggedIn$ | async; else anonUser" class="btn btn-secondary" routerLink="/" role="button" (click)="logout()">Log Out</a>
+  <a *ngIf="isLoggedIn$ | async; else noUser" class="btn btn-secondary" routerLink="/" role="button" (click)="onLogout()">Log Out</a>
 </nav>

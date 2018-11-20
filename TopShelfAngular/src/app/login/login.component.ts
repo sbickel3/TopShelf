@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
-import { NavbarService } from '../navbar.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -11,37 +11,49 @@ import { NavbarService } from '../navbar.service';
 })
 export class LoginComponent implements OnInit {
 
+  form: FormGroup;            
+  private formSubmitAttempt: boolean;
   user: User = new User();
   loggedUser = localStorage.getItem('user');
-  logInAttempt = false;
+  isValid: boolean;
   
 
-  constructor(private userService: UserService, private router: Router, private nav: NavbarService) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private fb: FormBuilder,
+    ) {}
 
 
   ngOnInit() {
     if (this.loggedUser) {
       this.router.navigate(['/user-home']);
-      this.nav.login();
+    } else{
+      this.form = this.fb.group({
+        username: ['', Validators.required],
+        password: ['', Validators.required]
+      })
     }
   }
 
-  login() {
-    this.logInAttempt = true;
-    this.userService.loginUser(this.user).subscribe(user => {
-      console.log(document.getElementById('inputUsername'));
-      if(!user) { 
-        this.nav.logout();
+  isFieldInvalid(field: string){
+      if((!this.form.get(field).valid && this.form.get(field).touched) ||
+      (this.form.get(field).untouched && this.formSubmitAttempt)){
+        this.isValid = false;
       } else {
-        localStorage.setItem('user', JSON.stringify(user));
-        console.log(`User, ${this.user.username}, successfully logged in!`);
-        console.log(localStorage.getItem('user'));
-        this.nav.login();
-        console.log('loggedIn = ' + this.nav.loggedIn);
-        this.router.navigate(['user-home']);
+        this.isValid = true;
       }
-    })
+  }
 
+  onSubmit(){
+    if(this.form.valid) {
+      if(this.userService.loginUser(this.form.value)){
+        this.isValid = true;
+      } else{
+        this.isValid = false;
+      }
+    }
+    this.formSubmitAttempt = true;
   }
 
 }

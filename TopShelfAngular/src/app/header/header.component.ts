@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { takeUntil } from 'rxjs/operators';
-import { User } from '../models/user';
-import { Subject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -11,21 +9,16 @@ import { Subject, Observable } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
 
-  user: User;
-  unsubscribeAll = new Subject();
   isLoggedIn$: Observable<boolean>;
-  loggedUser = localStorage.getItem('user');
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
     this.isLoggedIn$ = this.userService.isLoggedIn;
   }
 
-  ngOnInit() {
-   
+  onLogout() {
+    this.userService.logout();
   }
 
-  logout(){
-    localStorage.removeItem('user');
-    window.location.reload();
-  }
 }

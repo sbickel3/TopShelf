@@ -24,9 +24,7 @@ export class RegisterComponent implements OnInit {
       if(!user){
         this.isValid = false;
       } else{
-        localStorage.setItem('user', JSON.stringify(user));
         console.log(`User, ${this.user.username}, successfully logged in!`);
-        console.log(localStorage.getItem('user'));
         this.registerSuccess = true;
         this.router.navigate(['login']);
       }
