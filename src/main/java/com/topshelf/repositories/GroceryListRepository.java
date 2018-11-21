@@ -45,6 +45,7 @@ public class GroceryListRepository {
 		return groceryList;
 	}
 	
+	@Transactional
 	public void updateGroceryList(GroceryList groceryListToModify) throws JSONException, SerialException, UnsupportedEncodingException, SQLException {
 		Session s = sessionFactory.getCurrentSession();
 		

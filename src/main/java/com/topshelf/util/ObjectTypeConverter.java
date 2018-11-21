@@ -72,6 +72,9 @@ public class ObjectTypeConverter {
 		//Log4j log = new Log4j(); 
 		
 		JSONObject bigJson = convertBLOBtoJSON(blob);
+		if (bigJson.isNull("ingredient")) {
+			return new ArrayList<Ingredient>();
+		}
 		
 		ArrayList<Ingredient> list = new ArrayList<>();
 		//Iterator<String> bigKeys = bigJson.keys(); 
@@ -113,6 +116,10 @@ public class ObjectTypeConverter {
 	
 	public static JSONObject convertListToJson(ArrayList<Ingredient> ingredients) throws JSONException {
 		//Log4j log = new Log4j(); 
+		
+		if (ingredients == null) {
+			return new JSONObject();
+		}
 
 		JSONArray jsonArray = new JSONArray();
 		for (Ingredient ingred: ingredients) {
