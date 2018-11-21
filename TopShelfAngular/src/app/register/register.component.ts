@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
       if(!user){
         this.isValid = false;
       } else{
-        console.log(`User, ${this.user.username}, successfully logged in!`);
+        console.log(`User, ${this.user.chef.username}, successfully logged in!`);
         this.registerSuccess = true;
         this.router.navigate(['login']);
       }

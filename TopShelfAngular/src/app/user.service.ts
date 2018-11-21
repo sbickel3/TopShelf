@@ -17,7 +17,7 @@ const HTTP_OPTIONS = {
 
 export class UserService {
 
-  private loggedIn = new BehaviorSubject<boolean>(false);
+  private loggedIn = new BehaviorSubject<boolean>(true); //CHNGE THISSSSSISISISI
   private userLoggedIn: boolean;
 
   get isLoggedIn() {
@@ -29,7 +29,7 @@ export class UserService {
   constructor(private http: HttpClient, private router: Router) {}
 
   loginUser(user: User): boolean {
-    console.log(`Attempting to login user: ${user.username}`);
+    //console.log(`Attempting to login user: ${user.userInfo.username}`);
     let userJSON = JSON.stringify(user);
     this.http.post<User>(environment.apiURL + 'chefs/login', userJSON, HTTP_OPTIONS).subscribe(loggedUser => {
         if(!loggedUser) {
@@ -38,7 +38,7 @@ export class UserService {
         } else {
           this.loggedIn.next(true);
           localStorage.setItem('user', JSON.stringify(loggedUser));
-          console.log(`User, ${user.username}, successfully logged in!`);
+          //console.log(`User, ${user.userInfo.username}, successfully logged in!`);
           console.log(localStorage.getItem('user'));
           this.router.navigate(['user-home']);
           this.userLoggedIn = true;
@@ -48,7 +48,7 @@ export class UserService {
   }
 
   registerUser(user: User): Observable<User>{
-    console.log(`Attempting to register user: ${user.username}`);
+    //console.log(`Attempting to register user: ${user.userInfo.username}`);
     let userJSON = JSON.stringify(user);
     console.log(environment.apiURL);
     return this.http.post<User>(environment.apiURL + 'chefs/register', userJSON, HTTP_OPTIONS);

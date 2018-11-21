@@ -1,7 +1,9 @@
+import { Chef } from "./chef";
+import { Fridge } from "./fridge";
+import { Grocery } from "./grocery";
+
 export class User {
-    firstname: string;
-    lastname: number;
-    email: string;
-    username: string;
-    password: string;
+    chef: Chef;
+    fridge: Fridge;
+    grocery: Grocery;
 }
