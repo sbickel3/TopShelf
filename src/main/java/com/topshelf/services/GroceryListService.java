@@ -29,6 +29,7 @@ public class GroceryListService {
 		return groceryListRepository.addGroceryList(newList);
 	}
 	
+	@Transactional
 	public GroceryList getGroceryList(int id) throws SQLException, JSONException {
 		return groceryListRepository.getGroceryListById(id);
 	}

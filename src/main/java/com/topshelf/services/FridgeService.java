@@ -29,6 +29,7 @@ public class FridgeService {
 		return fridgeRepository.addFridge(this.fridge);
 	}
 	
+	@Transactional
 	public Fridge getFridge(int id) throws SQLException, JSONException, UnsupportedEncodingException {
 		return fridgeRepository.getFridgeById(id);
 	}

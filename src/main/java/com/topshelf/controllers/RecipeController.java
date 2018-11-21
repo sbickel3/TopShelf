@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.topshelf.beans.CookBook;
 import com.topshelf.beans.Recipe;
+import com.topshelf.services.CookBookService;
 import com.topshelf.services.RecipeService;
 
 @CrossOrigin
@@ -39,10 +41,9 @@ public class RecipeController {
 		
 	}
 
-	@PostMapping(value="/new", consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/new", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Boolean> addNewRecipe(@RequestBody Recipe newRecipe) throws SQLException, JSONException, UnsupportedEncodingException {
 		recipeService.addRecipe(newRecipe);
-		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

@@ -18,7 +18,6 @@ import com.topshelf.beans.Fridge;
 import com.topshelf.util.ObjectTypeConverter;
 
 @Repository
-@Transactional
 public class FridgeRepository {
 	private SessionFactory sessionFactory;
 
@@ -27,6 +26,7 @@ public class FridgeRepository {
 		this.sessionFactory = sessionFactory;
 	}
 
+	
 	public Fridge addFridge(Fridge fridge) throws SerialException, UnsupportedEncodingException, SQLException {
 		Session s = sessionFactory.getCurrentSession();
 		JSONObject json = new JSONObject();
@@ -48,6 +48,7 @@ public class FridgeRepository {
 		return fridge;
 	}
 	
+
 	public void updateFridge(Fridge fridgeToModify) throws JSONException, SerialException, UnsupportedEncodingException, SQLException {
 		Session s = sessionFactory.getCurrentSession();
 		JSONObject json = ObjectTypeConverter.convertListToJson(fridgeToModify.getIngredient());

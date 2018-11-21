@@ -26,7 +26,7 @@ public class GroceryListRepository {
 	public GroceryListRepository(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	@Transactional
+	
 	public GroceryList addGroceryList(GroceryList groceryList) throws SerialException, UnsupportedEncodingException, SQLException {
 		Session s = sessionFactory.getCurrentSession();
 		JSONObject json = new JSONObject();
@@ -45,7 +45,7 @@ public class GroceryListRepository {
 		return groceryList;
 	}
 	
-	@Transactional
+	
 	public void updateGroceryList(GroceryList groceryListToModify) throws JSONException, SerialException, UnsupportedEncodingException, SQLException {
 		Session s = sessionFactory.getCurrentSession();
 		

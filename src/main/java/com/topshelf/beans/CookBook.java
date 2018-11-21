@@ -1,17 +1,31 @@
 package com.topshelf.beans;
 
 import javax.persistence.Column;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+@Entity
+@Component
+@Table(name="Cookbook")
+@SequenceGenerator(name="cookbook_seq", sequenceName="cookbook_id_seq", allocationSize=1)
 public class CookBook {
 	
+	@Id
+	@Column(name="cookbook_id")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="cookbook_seq")
+	private int cookBookId;
+	
+	@Column(name="chef_id")
 	private int chefId;
 	
 	
+	@Column(name="recipe_id")
 	private int recipeId;
 
 	public CookBook() {
@@ -22,6 +36,14 @@ public class CookBook {
 		super();
 		this.chefId = chefId;
 		this.recipeId = recipeId;
+	}
+
+	public int getCookBookId() {
+		return cookBookId;
+	}
+
+	public void setCookBookId(int cookBookId) {
+		this.cookBookId = cookBookId;
 	}
 
 	public int getChefId() {
@@ -45,6 +67,7 @@ public class CookBook {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + chefId;
+		result = prime * result + cookBookId;
 		result = prime * result + recipeId;
 		return result;
 	}
@@ -60,6 +83,8 @@ public class CookBook {
 		CookBook other = (CookBook) obj;
 		if (chefId != other.chefId)
 			return false;
+		if (cookBookId != other.cookBookId)
+			return false;
 		if (recipeId != other.recipeId)
 			return false;
 		return true;
@@ -67,9 +92,6 @@ public class CookBook {
 
 	@Override
 	public String toString() {
-		return "CookBook [chefId=" + chefId + ", recipeId=" + recipeId + "]";
-	}
-	
-	
-        
+		return "CookBook [cookBookId=" + cookBookId + ", chefId=" + chefId + ", recipeId=" + recipeId + "]";
+	}        
 }
