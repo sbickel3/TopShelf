@@ -1,0 +1,111 @@
+<br>
+<div class="container">
+  <div class="row">
+    <h2>Your Checklist</h2>
+    <h4>Below, you will see your Fridge (your current list of ingredients), and your Grocery list (
+      your desired list of ingredients). you can select items to add or subtract them from each list.
+    </h4>
+  </div>
+
+  <br>
+  <br>
+
+  <div class="row">
+    <div class="col-sm">
+      <h2>My Fridge</h2>
+      <table id="fridge-table" mat-table [dataSource]="fridgeSource" class="mat-elevation-z8">
+
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggleFridge() : null" [checked]="fridgeSelection.hasValue() && isAllSelectedInFridge()"
+              [indeterminate]="fridgeSelection.hasValue() && !isAllSelectedInFridge()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? fridgeSelection.toggle(row) : null"
+              [checked]="fridgeSelection.isSelected(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="unit">
+          <th mat-header-cell *matHeaderCellDef> Unit </th>
+          <td mat-cell *matCellDef="let element"> {{element.unit}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="ingredient">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.ingredient}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="fridgeSelection.toggle(row)">
+        </tr>
+      </table>
+      <br>
+      <button class="btn ts-button" (click)="removeFromFridge()">Remove From Fridge</button>
+    </div>
+
+    <div class="col-sm">
+      <h2>My Grocery List</h2>
+      <table id="grocery-table" mat-table [dataSource]="grocerySource" class="mat-elevation-z8">
+
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggleGrocery() : null" [checked]="grocerySelection.hasValue() && isAllSelectedInGrocery()"
+              [indeterminate]="grocerySelection.hasValue() && !isAllSelectedInGrocery()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? grocerySelection.toggle(row) : null"
+              [checked]="grocerySelection.isSelected(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="unit">
+          <th mat-header-cell *matHeaderCellDef> Unit </th>
+          <td mat-cell *matCellDef="let element"> {{element.unit}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="ingredient">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.ingredient}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="grocerySelection.toggle(row)">
+        </tr>
+      </table>
+      <br>
+      <button class="btn ts-button" (click)="removeFromGrocery()">Remove From Grocery List</button>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-sm">
+    <button class="btn ts-button" (click)="commitChanges()">Save Changes</button>
+  </div>
+  <div class="col-sm">
+    <button class="btn ts-button" (click)="revertChanges()">Revert Changes</button>
+  </div>
+  </div>

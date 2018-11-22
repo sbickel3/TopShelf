@@ -1,0 +1,20 @@
+table {
+    width: 80%;
+  }
+
+#fridge-table {
+    background-color: #2174B3;
+}
+
+#grocery-table {
+    background-color: #B33633
+    ;
+}
+
+.mat-cell, .mat-header-cell{
+    color: white;
+}
+
+.mat-column-select {
+    overflow: initial;
+  }

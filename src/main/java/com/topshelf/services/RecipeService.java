@@ -2,8 +2,11 @@ package com.topshelf.services;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
+=======
+>>>>>>> f60ca9336c9e8af8546554531dc4da3d4c235eaa
 
 import javax.sql.rowset.serial.SerialException;
 
@@ -15,7 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.topshelf.beans.CookBook;
 import com.topshelf.beans.Recipe;
 import com.topshelf.repositories.RecipeRepository;
+<<<<<<< HEAD
 import com.topshelf.util.ObjectTypeConverter;
+=======
+>>>>>>> f60ca9336c9e8af8546554531dc4da3d4c235eaa
 
 @Service
 public class RecipeService {
@@ -35,6 +41,7 @@ public class RecipeService {
 		CookBook cookBookEntry = new CookBook(newDbRecipe.getChefId(), newDbRecipe.getId());
 		this.cookBookService.addCookBookEntry(cookBookEntry);
 	}
+<<<<<<< HEAD
 	
 	@Transactional
 	public List<Recipe> getChefRecipes(int chefId) throws SQLException, JSONException{
@@ -62,4 +69,6 @@ public class RecipeService {
 	public void deleteRecipe(Recipe deleteRecipe) {
 		recipeRepository.deleteRecipe(deleteRecipe);
 	}
+=======
+>>>>>>> f60ca9336c9e8af8546554531dc4da3d4c235eaa
 }
