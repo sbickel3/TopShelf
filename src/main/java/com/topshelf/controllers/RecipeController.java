@@ -38,18 +38,12 @@ public class RecipeController {
 	@GetMapping(value="/all", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Recipe>> getAllRecipes() throws SQLException, JSONException {
 		List<Recipe> allRecipes = recipeService.getAllRecipes();
-		if (allRecipes.size() == 0) {
-			return new ResponseEntity<List<Recipe>>(allRecipes, HttpStatus.NOT_FOUND);
-		}
 		return new ResponseEntity<List<Recipe>>(allRecipes, HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/{chefId}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Recipe>> getChefRecipes(@PathVariable int chefId) throws SQLException, JSONException {
 		List<Recipe> chefRecipes = recipeService.getChefRecipes(chefId);
-		if (chefRecipes.size() == 0) {
-			return new ResponseEntity<List<Recipe>>(chefRecipes, HttpStatus.NOT_FOUND);
-		}
 		return new ResponseEntity<List<Recipe>>(chefRecipes, HttpStatus.OK);
 	}
 
@@ -67,10 +61,7 @@ public class RecipeController {
 	
 	@DeleteMapping(value="/delete", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Boolean> deleteRecipe(@RequestBody Recipe recipeToDelete) throws SerialException, UnsupportedEncodingException, JSONException, SQLException{
-		boolean recipeToDeleteExists = recipeService.deleteRecipe(recipeToDelete);
-		if (recipeToDeleteExists) {
-			return new ResponseEntity<>(HttpStatus.OK);
-		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		recipeService.deleteRecipe(recipeToDelete);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
