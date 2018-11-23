@@ -39,17 +39,7 @@ public class RecipeService {
 	@Transactional
 	public List<Recipe> getChefRecipes(int chefId) throws SQLException, JSONException{
 		List<Recipe> recipeBlobIngredients = recipeRepository.getAllChefRecipes(chefId);
-		List<Recipe> chefRecipes = new ArrayList<Recipe>();
-		for (Recipe recipe: recipeBlobIngredients) {
-			Recipe chefRecipe = new Recipe();
-			chefRecipe.setId(recipe.getId());
-			chefRecipe.setName(recipe.getName());
-			chefRecipe.setInstruction(recipe.getInstruction());
-			chefRecipe.setPhoto(recipe.getPhoto());
-			chefRecipe.setChefId(recipe.getChefId());
-			chefRecipe.setIngredientList(ObjectTypeConverter.convertBlobToList(recipe.getIngredient()));
-			chefRecipes.add(chefRecipe);
-		}
+		List<Recipe> chefRecipes = extractListOfRecipes(recipeBlobIngredients);
 		return chefRecipes;
 	}
 	
@@ -59,7 +49,34 @@ public class RecipeService {
 	}
 	
 	@Transactional
-	public void deleteRecipe(Recipe deleteRecipe) {
-		recipeRepository.deleteRecipe(deleteRecipe);
+	public boolean deleteRecipe(Recipe deleteRecipe) throws SerialException, UnsupportedEncodingException, JSONException, SQLException {
+		boolean recipeExists = this.cookBookService.deleteRecipeFromCookBook(deleteRecipe.getId());
+		if (recipeExists) {
+			recipeRepository.deleteRecipe(deleteRecipe);
+			return true;
+		}
+		return false;
+	}
+	
+	@Transactional
+	public List<Recipe> getAllRecipes() throws SQLException, JSONException{
+		List<Recipe> recipeBlobIngredients = this.recipeRepository.getAllRecipes();
+		List<Recipe> allRecipes = extractListOfRecipes(recipeBlobIngredients);
+		return allRecipes;
+	}
+	
+	private List<Recipe> extractListOfRecipes(List<Recipe> listToConvert) throws SQLException, JSONException{
+		List<Recipe> recipesToReturn = new ArrayList<Recipe>();
+		for (Recipe recipe: listToConvert) {
+			Recipe chefRecipe = new Recipe();
+			chefRecipe.setId(recipe.getId());
+			chefRecipe.setName(recipe.getName());
+			chefRecipe.setInstruction(recipe.getInstruction());
+			chefRecipe.setPhoto(recipe.getPhoto());
+			chefRecipe.setChefId(recipe.getChefId());
+			chefRecipe.setIngredientList(ObjectTypeConverter.convertBlobToList(recipe.getIngredient()));
+			recipesToReturn.add(chefRecipe);
+		}
+		return recipesToReturn;
 	}
 }

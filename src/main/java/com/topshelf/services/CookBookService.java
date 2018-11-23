@@ -20,4 +20,13 @@ public class CookBookService {
 	public void addCookBookEntry(CookBook entry) {
 		this.cookBookRepository.addCookbookEntry(entry);
 	}
+	
+	@Transactional
+	public boolean deleteRecipeFromCookBook(int recipeId) {
+		boolean deleteRecipe = this.cookBookRepository.deleteCookBookRecipe(recipeId);
+		if (!deleteRecipe) {
+			return false;
+		}
+		return true;
+	}
 }

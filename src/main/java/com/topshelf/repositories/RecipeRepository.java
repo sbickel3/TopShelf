@@ -47,6 +47,13 @@ public class RecipeRepository {
 		return chefRecipes;
 	}
 	
+	public List<Recipe> getAllRecipes(){
+		Session session = sessionFactory.getCurrentSession();
+		Query allRecipesQuery = session.createQuery("from Recipe");
+		List<Recipe> allRecipes = allRecipesQuery.getResultList();
+		return allRecipes;
+	}
+	
 	public void updateRecipe(Recipe updatedRecipe) throws JSONException, SerialException, UnsupportedEncodingException, SQLException {
 		Session session = sessionFactory.getCurrentSession();
 		JSONObject json = ObjectTypeConverter.convertListToJson(updatedRecipe.getIngredientList());
@@ -54,8 +61,10 @@ public class RecipeRepository {
 		session.merge(updatedRecipe);
 	}
 	
-	public void deleteRecipe(Recipe deleteRecipe) {
+	public void deleteRecipe(Recipe deleteRecipe) throws JSONException, SerialException, UnsupportedEncodingException, SQLException {
 		Session session = sessionFactory.getCurrentSession();
+		JSONObject json = ObjectTypeConverter.convertListToJson(deleteRecipe.getIngredientList());
+		deleteRecipe.setIngredient(ObjectTypeConverter.convertJSONtoBLOB(json));
 		session.delete(deleteRecipe);
 	}
 }
