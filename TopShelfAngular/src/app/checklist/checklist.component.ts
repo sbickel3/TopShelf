@@ -8,7 +8,6 @@ import { Ingredient } from '../models/ingredient';
 import { Chef } from '../models/chef';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { isObject } from 'util';
 
 const HTTP_OPTIONS = {
   headers: new HttpHeaders({
@@ -27,6 +26,8 @@ export class ChecklistComponent implements OnInit {
   myInfo: Chef;
   myFridge: Fridge;
   myGrocery: Grocery;
+  newFridgeIngredient = new Ingredient();
+  newGroceryIngredient = new Ingredient();
 
   // Holder for our edited fridge and grocery lists
   tempFridge: Ingredient[];
@@ -99,7 +100,7 @@ export class ChecklistComponent implements OnInit {
     console.log(this.fridgeSource.data);
   }
 
-  addToFridge() {
+  moveToFridge() {
     let myIngArr: Ingredient[];
     myIngArr = this.fridgeSource.data;
 
@@ -110,6 +111,23 @@ export class ChecklistComponent implements OnInit {
     this.removeFromGrocery();
     this.fridgeSource = new MatTableDataSource<Ingredient>(myIngArr);
     this.fridgeSelection = new SelectionModel<Ingredient>(true, []);
+  }
+
+  addToFridge() {
+    let myIngArr: Ingredient[];
+    myIngArr = this.fridgeSource.data;
+
+    console.log(myIngArr);
+
+    myIngArr.push(this.newFridgeIngredient);
+
+    console.log(myIngArr);
+
+    this.fridgeSource = new MatTableDataSource<Ingredient>(myIngArr);
+
+    this.newFridgeIngredient.ingredient = "";
+    this.newFridgeIngredient.quantity = "";
+    this.newFridgeIngredient.unit = "";
   }
 
   removeFromGrocery() {
@@ -123,7 +141,7 @@ export class ChecklistComponent implements OnInit {
     console.log(this.grocerySource.data);
   }
 
-  addToGrocery() {
+  moveToGrocery() {
     let myIngArr: Ingredient[];
     myIngArr = this.grocerySource.data;
 
