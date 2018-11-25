@@ -8,6 +8,9 @@ import { Ingredient } from '../models/ingredient';
 import { Chef } from '../models/chef';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { IngredientFormatterPipe } from '../ingredient-formatter.pipe';
+import * as parsing from '../parser/parse';
+import * as converting from '../parser/convert';
 
 const HTTP_OPTIONS = {
   headers: new HttpHeaders({
@@ -42,6 +45,9 @@ export class ChecklistComponent implements OnInit {
   // info for Grocery Table
   grocerySource;
   grocerySelection;
+
+  ingredientFridgeAlert = false;
+  ingredientGroceryAlert = false;
 
   constructor(private http: HttpClient) {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -116,18 +122,26 @@ export class ChecklistComponent implements OnInit {
   addToFridge() {
     let myIngArr: Ingredient[];
     myIngArr = this.fridgeSource.data;
+    let myPipe = new IngredientFormatterPipe();
 
-    console.log(myIngArr);
+    if (this.newFridgeIngredient.ingredient && this.newFridgeIngredient.quantity && this.newFridgeIngredient.unit) {
+      if (Number(this.newFridgeIngredient.quantity) >= 0 && Number(this.newFridgeIngredient.quantity) < 100) {
 
-    myIngArr.push(this.newFridgeIngredient);
+        this.ingredientFridgeAlert = false;
 
-    console.log(myIngArr);
+        myIngArr.push({ quantity: this.newFridgeIngredient.quantity, unit: this.newFridgeIngredient.unit, ingredient: myPipe.transform(this.newFridgeIngredient.ingredient) });
 
-    this.fridgeSource = new MatTableDataSource<Ingredient>(myIngArr);
+        this.fridgeSource = new MatTableDataSource<Ingredient>(myIngArr);
 
-    this.newFridgeIngredient.ingredient = "";
-    this.newFridgeIngredient.quantity = "";
-    this.newFridgeIngredient.unit = "";
+        this.newFridgeIngredient.ingredient = '';
+        this.newFridgeIngredient.quantity = '';
+        this.newFridgeIngredient.unit = '';
+      } else {
+        this.ingredientFridgeAlert = true;
+      }
+    } else {
+      this.ingredientFridgeAlert = true;
+    }
   }
 
   removeFromGrocery() {
@@ -138,7 +152,6 @@ export class ChecklistComponent implements OnInit {
     });
 
     this.grocerySelection = new SelectionModel<Element>(true, []);
-    console.log(this.grocerySource.data);
   }
 
   moveToGrocery() {
@@ -154,6 +167,31 @@ export class ChecklistComponent implements OnInit {
     this.grocerySelection = new SelectionModel<Ingredient>(true, []);
   }
 
+  addToGrocery() {
+    let myIngArr: Ingredient[];
+    myIngArr = this.grocerySource.data;
+    let myPipe = new IngredientFormatterPipe();
+
+    if (this.newGroceryIngredient.ingredient && this.newGroceryIngredient.quantity && this.newGroceryIngredient.unit) {
+      if (Number(this.newGroceryIngredient.quantity) >= 0 && Number(this.newGroceryIngredient.quantity) < 100) {
+        
+        this.ingredientGroceryAlert = false;
+
+        myIngArr.push({ quantity: this.newGroceryIngredient.quantity, unit: this.newGroceryIngredient.unit, ingredient: myPipe.transform(this.newGroceryIngredient.ingredient) });
+
+        this.grocerySource = new MatTableDataSource<Ingredient>(myIngArr);
+
+        this.newGroceryIngredient.ingredient = '';
+        this.newGroceryIngredient.quantity = '';
+        this.newGroceryIngredient.unit = '';
+      } else {
+        this.ingredientGroceryAlert = true;
+      }
+    } else {
+      this.ingredientGroceryAlert = true;
+    }
+  }
+
   commitChanges() {
     // Put new list into fridge object
     this.myFridge.ingredient = this.tempFridge;
@@ -162,7 +200,7 @@ export class ChecklistComponent implements OnInit {
 
     console.log(fridgeJSON);
     this.http.put<Fridge>(environment.apiURL + 'fridge/update', fridgeJSON, HTTP_OPTIONS).subscribe(response => {
-      this.updateUser(); 
+      this.updateUser();
     });
 
     // Put new list into grocery object
@@ -173,7 +211,7 @@ export class ChecklistComponent implements OnInit {
     console.log(groceryJSON);
     this.http.put<Grocery>(environment.apiURL + 'grocerylist/update', groceryJSON, HTTP_OPTIONS).subscribe(response => {
       localStorage.setItem('grocery', JSON.stringify(this.myGrocery.ingredient));
-      this.updateUser(); 
+      this.updateUser();
     });
 
   }

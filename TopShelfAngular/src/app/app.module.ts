@@ -24,6 +24,7 @@ import { AboutComponent } from './about/about.component';
 import { UserService } from './user.service';
 import { UserGuardService } from './user-guard.service';
 import { Fridge_Grocery_Service } from './fridge-grocery.service';
+import { IngredientFormatterPipe } from './ingredient-formatter.pipe';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { Fridge_Grocery_Service } from './fridge-grocery.service';
     AddRecipesComponent,
     ChecklistComponent,
     PossibleRecipesComponent,
-    AboutComponent
+    AboutComponent,
+    IngredientFormatterPipe
   ],
   imports: [
     BrowserModule,
