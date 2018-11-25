@@ -4,57 +4,78 @@
   <p>Please fill in this form to register a new Account.</p>
   <hr />
 
-  <form>
+  <!-- <form>
     <div class="form-row">
       <div class="form-group col-md-4">
         <label for="inputFirstName">First Name</label>
-        <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" [(ngModel)]="user.firstname" [ngModelOptions]="{standalone: true}">
+        <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" [(ngModel)]="chef.firstname" [ngModelOptions]="{standalone: true}">
       </div>
       <div class="form-group col-md-4">
         <label for="inputLastName">Last Name</label>
-        <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" [(ngModel)]="user.lastname" [ngModelOptions]="{standalone: true}">
+        <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" [(ngModel)]="chef.lastname" [ngModelOptions]="{standalone: true}">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-4">
         <label for="inputEmail">Email Address</label>
-        <input type="email" class="form-control" id="inputEmail" placeholder="Email" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}">
+        <input type="email" class="form-control" id="inputEmail" placeholder="Email" [(ngModel)]="chef.email" [ngModelOptions]="{standalone: true}">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-4">
         <label for="inputUsername">Username</label>
-        <input type="text" class="form-control" id="inputUsername" placeholder="Username" [(ngModel)]="user.username" [ngModelOptions]="{standalone: true}">
+        <input type="text" class="form-control" id="inputUsername" placeholder="Username" [(ngModel)]="chef.username" [ngModelOptions]="{standalone: true}">
       </div>
       <div class="form-group col-md-4">
         <label for="inputPassword">Password</label>
-        <input type="password" class="form-control" id="inputPassword" placeholder="Password" [(ngModel)]="user.password" [ngModelOptions]="{standalone: true}">
+        <input type="password" class="form-control" id="inputPassword" placeholder="Password" [(ngModel)]="chef.password" [ngModelOptions]="{standalone: true}">
       </div>
     </div>
     <button type="submit" class="btn ts-button" (click)="register()">Register</button>
-  </form>
-</div>
+  </form> -->
 
-<div *ngIf="!isValid" class="alert alert-danger" role="alert">
-  That Username Already Exists!
-</div>
-
-<div *ngIf="registerSuccess" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputFirstName">First Name</label>
+        <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" formControlName="firstname"
+          required>
       </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <!-- <button type="button" class="btn btn-primary">Register</button> -->
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <div class="form-group col-md-4">
+        <label for="inputLastName">Last Name</label>
+        <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" formControlName="lastname"
+          required>
       </div>
     </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputEmail">Email</label>
+        <input type="text" class="form-control" id="inputEmail" placeholder="Email" formControlName="email" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputUsername">Username</label>
+        <input type="text" class="form-control" id="inputUsername" placeholder="Username" formControlName="username"
+          required>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputPassword">Password</label>
+        <input type="password" class="form-control" id="inputPassword" placeholder="Password" formControlName="password"
+          required>
+      </div>
+    </div>
+    <button type="submit" class="btn ts-button">Submit</button>
+  </form>
+
+  <br>
+
+  <div *ngIf="isEmpty && formSubmitAttempt" class="alert alert-danger" role="alert">
+    Please fill out all fields
   </div>
+
+  <div *ngIf="!isValid && formSubmitAttempt" class="alert alert-danger" role="alert">
+    Sorry, but that username or email already exists. Please try again.
+  </div>
+
 </div>

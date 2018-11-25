@@ -4,7 +4,7 @@ import { RouterModule }from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule, MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { MatTableModule, MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatPaginatorModule, MatInputModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { UiModule } from './ui/ui.module';
@@ -49,6 +49,9 @@ import { IngredientFormatterPipe } from './ingredient-formatter.pipe';
     MatTableModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatFormFieldModule,
+    MatPaginatorModule,
+    MatInputModule,
     UiModule,
     FormsModule, // necessary for two-way data binding using ngModel
     HttpClientModule,

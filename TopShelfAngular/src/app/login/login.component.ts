@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   private formSubmitAttempt: boolean;
   user: User = new User();
-  loggedUser = localStorage.getItem('user');
+  loggedUser = window.localStorage.getItem('user');
   isValid: boolean;
 
 
@@ -49,9 +49,7 @@ onSubmit(){
   if (this.form.valid) {
     if (this.userService.loginUser(this.form.value)) {
       this.isValid = true;
-    } else {
-      this.isValid = false;
-    }
+    } 
   }
   this.formSubmitAttempt = true;
 }
