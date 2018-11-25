@@ -1,20 +1,31 @@
 table {
-    width: 80%;
-  }
+    width: 100%;
+}
 
 #fridge-table {
-    background-color: #2174B3;
+    background-color: #F8F5AC;
 }
 
 #grocery-table {
-    background-color: #B33633
-    ;
+    background-color: #F8F5AC;
 }
 
-.mat-cell, .mat-header-cell{
+.mat-cell {
+    color: #634C3F;
+    font-family: 'Sedgwick Ave', cursive;
+}
+
+.mat-header-cell{
+    background-color: #634C3F;
     color: white;
 }
 
+
 .mat-column-select {
     overflow: initial;
-  }
+}
+
+#checklist {
+    margin-top: 6%;
+    margin-bottom: 6%;
+}

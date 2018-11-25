@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from '../models/user';
-import { SelectionModel } from '@angular/cdk/collections';
+import { Injectable } from '@angular/core';
+import { User } from './models/user';
+import { Chef } from './models/chef';
+import { Fridge } from './models/fridge';
+import { Grocery } from './models/grocery';
+import { Ingredient } from './models/ingredient';
 import { MatTableDataSource } from '@angular/material';
-import { Fridge } from '../models/fridge';
-import { Grocery } from '../models/grocery';
-import { Ingredient } from '../models/ingredient';
-import { Chef } from '../models/chef';
+import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { isObject } from 'util';
 
 const HTTP_OPTIONS = {
   headers: new HttpHeaders({
@@ -16,13 +15,10 @@ const HTTP_OPTIONS = {
   })
 };
 
-@Component({
-  selector: 'app-checklist',
-  templateUrl: './checklist.component.html',
-  styleUrls: ['./checklist.component.css']
+@Injectable({
+  providedIn: 'root'
 })
-export class ChecklistComponent implements OnInit {
-
+export class Fridge_Grocery_Service {
   user: User;
   myInfo: Chef;
   myFridge: Fridge;
@@ -165,10 +161,6 @@ export class ChecklistComponent implements OnInit {
     this.user.grocery = this.myGrocery;
 
     localStorage.setItem('user', JSON.stringify(this.user));
-  }
-
-  revertChanges() {
-    window.location.reload();
   }
 
 }

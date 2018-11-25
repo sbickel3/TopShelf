@@ -23,6 +23,7 @@ import { PossibleRecipesComponent } from './possible-recipes/possible-recipes.co
 import { AboutComponent } from './about/about.component';
 import { UserService } from './user.service';
 import { UserGuardService } from './user-guard.service';
+import { Fridge_Grocery_Service } from './fridge-grocery.service';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import { UserGuardService } from './user-guard.service';
     ])
   ],
   providers: [
-    UserService
+    UserService,
+    Fridge_Grocery_Service
   ],
   bootstrap: [AppComponent]
 })
