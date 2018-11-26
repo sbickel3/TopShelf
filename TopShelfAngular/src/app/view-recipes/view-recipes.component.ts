@@ -55,13 +55,13 @@ export class ViewRecipesComponent implements OnInit, OnDestroy {
     parsing.parse(ingr);
   }
 
-  checkValue() {
-    this.recipes.forEach((value: IRecipes[], index: number) => {
-      this.resultList = value;
-      console.log(index, value);
-      console.log(this.resultList);
-    });
-  }
+  // checkValue() {
+  //   this.recipes.forEach((value: IRecipes[], index: number) => {
+  //     this.resultList = value;
+  //     console.log(index, value);
+  //     console.log(this.resultList);
+  //   });
+  // }
 
   ngOnDestroy() {
     if (this.subscription) {

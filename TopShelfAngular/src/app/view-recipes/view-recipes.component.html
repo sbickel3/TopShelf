@@ -3,9 +3,9 @@
     <div class="col-sm-6">
       <div id="searchHeaders">
         <h2 class="display-4">
-          What Can You Make?
+          Search Recipes
         </h2>
-        <p>Enter the ingredients you already have to find out.</p>
+        <p>Enter ingredients to find recipes.</p>
       </div>
       <small class="text-muted">Separate each ingredient with a comma.</small>
     </div>
@@ -18,7 +18,6 @@
           aria-describedby="button-addon2">
         <div class="input-group-append">
           <button class="btn ts-button" type="button" id="searchButton" (click)="searchForRecipe()">Search For Recipes</button>
-          <button class="btn ts-button" type="button" id="searchButton" (click)="checkValue()">Check</button>
         </div>
       </div>
     </div>
@@ -43,42 +42,4 @@
       </ul>
     </ul>
   </div>
-
-  <!-- <div class="row justify-content-md-center">
-    <div class="col-sm-10">
-      <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-      </mat-form-field>
-
-      <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
-
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="progress">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Progress </th>
-            <td mat-cell *matCellDef="let row"> {{row.progress}}% </td>
-          </ng-container>
-
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-            <td mat-cell *matCellDef="let row"> {{row.name}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="color">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Color </th>
-            <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-          </tr>
-        </table>
-
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-      </div>
-    </div> -->
   </div>

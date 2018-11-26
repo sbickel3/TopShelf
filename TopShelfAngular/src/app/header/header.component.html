@@ -9,7 +9,7 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li *ngIf="isLoggedIn$ | async" class="nav-item">
-        <a class="nav-link" routerLink="/view-recipes">Recipes</a>
+        <a class="nav-link" routerLink="/view-recipes">Search</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/featured-recipe">What's New</a>
@@ -21,7 +21,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" routerLink="/user-home">User Home</a>
-          <a class="dropdown-item" routerLink="/possible-recipes">What Can I Make?</a>
+          <a class="dropdown-item" routerLink="/add-recipes">Add A Recipe</a>
           <a class="dropdown-item" routerLink="/checklist">Checklist</a>
         </div>
       </li>

@@ -1,0 +1,28 @@
+#title{
+    text-align: center;
+}
+
+.required{
+    color: red;
+}
+
+table {
+    width: 100%;
+    background-color: #F8F5AC;
+    margin-bottom: 3%;
+}
+
+.mat-cell {
+    color: #634C3F;
+    font-family: 'Sedgwick Ave', cursive;
+}
+
+.mat-header-cell{
+    background-color: #634C3F;
+    color: white;
+}
+
+
+.mat-column-select {
+    overflow: initial;
+}
