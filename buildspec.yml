@@ -1,0 +1,42 @@
+version: 0.2
+
+phases:
+
+ pre_build:
+
+   commands:
+     - pwd
+     - mvn -version
+     - mvn install:install-file -Dfile=./src/main/resources/ojdbc7-11.2.0.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=11.2.0 -Dpackaging=jar
+     - echo Running JUnit tests on `date`
+     - mvn test
+
+ build:
+
+   commands:
+
+     - echo Maven build started on `date`
+
+     - mvn clean package
+
+     - mv target/topshelf-0.0.1-SNAPSHOT.war topshelf-0.0.1-SNAPSHOT.war
+
+artifacts:
+
+ files:
+
+   - topshelf-0.0.1-SNAPSHOT.war
+
+   - .ebextensions/**/*
+
+eb_codebuild_settings:
+
+ CodeBuildServiceRole: codebuild-TopShelfCI-service-role
+
+ ComputeType: BUILD_GENERAL1_SMALL
+
+ Image: aws/codebuild/java:openjdk-8
+
+ Timeout: 60
+
+ base-directory: 'target/topshelf'
