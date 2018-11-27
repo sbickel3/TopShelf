@@ -94,8 +94,7 @@ import { SingleRecipeComponent } from './single-recipe/single-recipe.component';
       },
       {
         path: 'single-recipe',
-        component: SingleRecipeComponent,
-        canActivate: [UserGuardService]
+        component: SingleRecipeComponent
       },
       {
         path: 'checklist',
@@ -104,7 +103,8 @@ import { SingleRecipeComponent } from './single-recipe/single-recipe.component';
       },
       {
         path: 'featured-recipe',
-        component: FeaturedRecipeComponent
+        component: FeaturedRecipeComponent,
+        canActivate: [UserGuardService]
       },
       {
         path: 'possible-recipes',
@@ -118,8 +118,7 @@ import { SingleRecipeComponent } from './single-recipe/single-recipe.component';
       },
       {
         path: 'view-recipes',
-        component: ViewRecipesComponent,
-        canActivate: [UserGuardService]
+        component: ViewRecipesComponent
       },
       {
         path: 'about',

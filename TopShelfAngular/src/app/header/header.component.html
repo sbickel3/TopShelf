@@ -8,11 +8,11 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
-      <li *ngIf="isLoggedIn$ | async" class="nav-item">
+      <li class="nav-item">
         <a class="nav-link" routerLink="/view-recipes">Search</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/featured-recipe">What's New</a>
+      <li *ngIf="isLoggedIn$ | async" class="nav-item">
+        <a class="nav-link" routerLink="/possible-recipes">What Can You Make?</a>
       </li>
       <li *ngIf="isLoggedIn$ | async" class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
