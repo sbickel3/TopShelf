@@ -17,29 +17,30 @@
         <input type="text" class="form-control" id="searchQuery" placeholder="Your Ingredients" aria-label="Recipient's username"
           aria-describedby="button-addon2">
         <div class="input-group-append">
-          <button class="btn ts-button" type="button" id="searchButton" (click)="searchForRecipe()">Search For Recipes</button>
+          <button class="btn ts-button" type="button" id="searchButton" (click)="searchForRecipe(searchIndex=0)">Search For Recipes</button>
+          <button [disabled]="!searchExecuted || minSearchIndex || noResultList" (click)="nextPreviousQuery()"><</button>
+          <button>Page {{searchIndex+1}}</button>
+          <button [disabled]="!searchExecuted || maxSearchIndex || noResultList" (click)="nextSearchQuery()">></button>
         </div>
       </div>
     </div>
-    <div *ngIf="!resultList.hits && searchExecuted" class="container">NO RESULTS FOUND</div>
-    <ul id="recipeList" *ngFor="let recipe of recipes">
-      <ul *ngFor="let hits of recipe.hits">
-        <br>
-        <img [src]=hits.recipe.image />
-        <li>
-          <h2>{{ hits.recipe.label }}</h2>
-        </li>
-        <li>
-          <h3><a target="blank" [href]=hits.recipe.url>Recipe Instructions</a></h3>
-        </li>
-        <li>
-          <h3>Ingredients:</h3>
-        </li>
-        <ul *ngFor="let ingredient of hits.recipe.ingredientLines">
-          <li>{{ ingredient }}</li>
-        </ul>
-        <br>
-      </ul>
+  </div>
+
+  <div class="row justify-content-md-center">
+      <div class="col-sm-10">
+    <div *ngIf="noResultList && searchExecuted" class="container">NO RESULTS FOUND</div>
+    <ul *ngFor="let hits of recipes.hits; let i = index;">
+
+      <a (click)= "editRecipe(hits)">
+        <mat-card class="recipe-card" [ngClass]="{ 'mat-elevation-z10': isHover[i] }" (mouseover)="isHover[i] = true"
+          (mouseleave)="isHover[i] = false">
+          <mat-card-header class="recipe-header">
+            <mat-card-title>{{ hits.recipe.label }}</mat-card-title>
+          </mat-card-header>
+          <img mat-card-image class="recipe-image" [src]=hits.recipe.image alt="Image Unavailable">
+        </mat-card>
+      </a>
     </ul>
-  </div>
-  </div>
+    </div>
+    </div>
+</div>

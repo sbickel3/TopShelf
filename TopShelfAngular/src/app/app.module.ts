@@ -4,7 +4,7 @@ import { RouterModule }from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule, MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatPaginatorModule, MatInputModule } from '@angular/material';
+import { MatTableModule, MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatPaginatorModule, MatInputModule, MatCardModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { UiModule } from './ui/ui.module';
@@ -25,6 +25,9 @@ import { UserService } from './user.service';
 import { UserGuardService } from './user-guard.service';
 import { Fridge_Grocery_Service } from './fridge-grocery.service';
 import { IngredientFormatterPipe } from './ingredient-formatter.pipe';
+import { ChefRecipesComponent } from './chef-recipes/chef-recipes.component';
+import { EditRecipeComponent } from './edit-recipe/edit-recipe.component';
+import { SingleRecipeComponent } from './single-recipe/single-recipe.component';
 
 @NgModule({
   declarations: [
@@ -42,10 +45,14 @@ import { IngredientFormatterPipe } from './ingredient-formatter.pipe';
     ChecklistComponent,
     PossibleRecipesComponent,
     AboutComponent,
-    IngredientFormatterPipe
+    IngredientFormatterPipe,
+    ChefRecipesComponent,
+    EditRecipeComponent,
+    SingleRecipeComponent
   ],
   imports: [
     BrowserModule,
+    MatCardModule,
     MatTableModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -73,6 +80,21 @@ import { IngredientFormatterPipe } from './ingredient-formatter.pipe';
       {
         path: 'add-recipes',
         component: AddRecipesComponent,
+        canActivate: [UserGuardService]
+      },
+      {
+        path: 'edit-recipe',
+        component: EditRecipeComponent,
+        canActivate: [UserGuardService]
+      },
+      {
+        path: 'chef-recipes',
+        component: ChefRecipesComponent,
+        canActivate: [UserGuardService]
+      },
+      {
+        path: 'single-recipe',
+        component: SingleRecipeComponent,
         canActivate: [UserGuardService]
       },
       {

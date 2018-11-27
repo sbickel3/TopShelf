@@ -1,22 +1,4 @@
-#recipeSearch {
-    margin-top: 8%;
-    margin-bottom: 8%;
-}
-
-#searchHeaders {
-    text-align: center;
-}
-
-table {
-    width: 80%;
-}
-
-.mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-
-  .recipe-card {
+.recipe-card {
     max-width: 300px;
     max-height: 400px;
     margin-bottom: 150px;

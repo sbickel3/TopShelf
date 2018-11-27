@@ -1,0 +1,92 @@
+<div class="container">
+    <br>
+    <h2 id="title">Update or Delete Your Recipe</h2>
+    <p>Fill out the following form to update your own recipe. Required fields are marked with an asterisk.</p>
+    <hr />
+  
+    <form>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputRecipeName"><span class="required">*</span> Recipe Name</label>
+          <input type="text" class="form-control" id="inputRecipeName" placeholder="Recipe Name" [(ngModel)]="updatedRecipe.name" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="recipeImageURL">Recipe Image URL</label>
+          <input type="text" class="form-control" id="recipeImageURL" placeholder="URL" [(ngModel)]="updatedRecipe.photo" [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="ingredientList"><span class="required">*</span> Recipe Ingredients</label>
+          <table id="recipeIngredientsTable" mat-table [dataSource]="recipeIngredientSource" class="mat-elevation-z8">
+                  
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="$event ? masterToggleIngredientTable() : null" [checked]="recipeIngredientSelection.hasValue() && isAllSelectedInIngredientTable()"
+                    [indeterminate]="recipeIngredientSelection.hasValue() && !isAllSelectedInIngredientTable()">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? recipeIngredientSelection.toggle(row) : null"
+                    [checked]="recipeIngredientSelection.isSelected(row)">
+                  </mat-checkbox>
+                </td>
+                <td mat-footer-cell *matFooterCellDef><button class="btn ts-button" (click)="addToRecipeIngredients()">Add</button></td>
+              </ng-container>
+  
+              <ng-container matColumnDef="quantity">
+                  <th mat-header-cell *matHeaderCellDef> No. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+                  <td mat-footer-cell *matFooterCellDef><input type="number" min="0" max="99" size="1" [(ngModel)] = "newRecipeIngredient.quantity" [ngModelOptions]="{standalone: true}"></td>
+                </ng-container>
+  
+                <ng-container matColumnDef="unit">
+                    <th mat-header-cell *matHeaderCellDef> Unit </th>
+                    <td mat-cell *matCellDef="let element"> {{element.unit}} </td>
+                    <td mat-footer-cell *matFooterCellDef>
+                        <select [(ngModel)]="newRecipeIngredient.unit" [ngModelOptions]="{standalone: true}">
+                          <option value="cup">Cup</option>
+                          <option value="gallon">Gallon</option>
+                          <option value="ounce">Ounce</option>
+                          <option value="pint">Pint</option>
+                          <option value="pound">Pound</option>
+                          <option value="tablespoon">Tablespoon</option>
+                          <option value="teaspoon">Teaspoon</option>
+                          <option value="gram">Gram</option>
+                          <option value="kilogram">Kilogram</option>
+                          <option value="liter">Liter</option>
+                          <option value="milligram">Milligram</option>
+                          <option value="milliliter">Milliliter</option>
+                          <option value="clove">Clove</option>
+                          <option value="bag">Bag</option>
+                          <option value="box">Box</option>
+                          <option value="can">Can</option>
+                          <option value="slice">Slice</option>
+                        </select></td>
+                  </ng-container>
+          
+                  <ng-container matColumnDef="ingredient">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.ingredient}} </td>
+                    <td mat-footer-cell *matFooterCellDef><input size="5" [(ngModel)] = "newRecipeIngredient.ingredient" [ngModelOptions]="{standalone: true}"></td>
+                  </ng-container>
+          
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="recipeIngredientSelection.toggle(row)"></tr>
+                  <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+                </table>
+          <div class="row">
+              <div class="col-sm">
+                <button class="btn ts-button btn-block" (click)="removeFromIngredientTable()">Remove Ingredient</button>
+              </div>
+            </div>
+        </div>
+          <div class="form-group col-md-6">
+          <label for="recipeInstructions">Instructions</label>
+          <textarea class="form-control" id="recipeInstructions" placeholder="Instructions for Recipe" [(ngModel)]="updatedRecipe.instruction" [ngModelOptions]="{standalone: true}" cols="25" name="mytextbox" rows="8"></textarea> 
+        </div>
+      </div>
+      <button type="submit" class="btn ts-button" (click)="updateRecipe()">Update Recipe</button>
+      <button type="submit" class="btn ts-button" (click)="deleteRecipe()">Delete Recipe</button>
+    </form>
+  </div>

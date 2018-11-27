@@ -1,4 +1,9 @@
 export interface IRecipes {
+    count: number,
+    from: number,
+    hits: any,
+    more: boolean,
+    params: any, 
     q: string,
-    r: string
+    to: number
 }

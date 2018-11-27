@@ -25,7 +25,29 @@ table {
     overflow: initial;
 }
 
-#checklist {
+#recipeSearch {
     margin-top: 6%;
     margin-bottom: 6%;
 }
+
+.recipe-card {
+    max-width: 300px;
+    max-height: 400px;
+    margin-bottom: 150px;
+    margin-left: 50px;
+    float:left;
+    height: 400px;
+  }
+  
+ .recipe-image{
+  width: 110%;
+  height: 75%;
+  background-size: cover;
+  padding-left: 20px;
+  padding-right: 20px;
+ }
+
+ .recipe-header{
+  width: 110%;
+  height: 25%;
+ }

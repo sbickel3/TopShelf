@@ -26,4 +26,17 @@ export class ChefRecipesService {
     let recipeJSON = JSON.stringify(recipe);
     return this.http.post<Recipe>(environment.apiURL + 'recipe/new', recipeJSON, HTTP_OPTIONS);
   }
+
+  getAllChefRecipes(chefId: number): Observable<Recipe[]>{
+    return this.http.get<Recipe[]>(environment.apiURL + `recipe/${chefId}`);
+  }
+
+  updateChefRecipe(recipe: Recipe): Observable<Recipe>{
+    let recipeJSON = JSON.stringify(recipe);
+    return this.http.put<Recipe>(environment.apiURL + 'recipe/update', recipeJSON, HTTP_OPTIONS);
+  }
+
+  deleteChefRecipe(recipe: Recipe): Observable<Recipe>{
+    return this.http.delete<Recipe>(environment.apiURL + `recipe/delete/${recipe.id}`, HTTP_OPTIONS);
+  }
 }

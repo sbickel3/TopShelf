@@ -1,85 +1,72 @@
-<!-- <div clas="container" id="recipeSearch">
-        <div class="row justify-content-md-center">
-          <div class="col-sm-6">
-            <div id="searchHeaders">
-              <h2 class="display-4">
-                Search Recipes
-              </h2>
-              <p>Enter ingredients to find recipes.</p>
-            </div>
-            <small class="text-muted">Separate each ingredient with a comma.</small>
-          </div>
+<div class="container" id="recipeSearch">
+  <div class="row">
+    <div class="col-sm-7">
+      <div id="searchHeaders">
+        <h2 class="display-4">
+          What Can You Make?
+        </h2>
+        <p>Enter ingredients to find recipes, or chooose items from your fridge.</p>
+      </div>
+      <small class="text-muted">Separate each ingredient with a comma.</small>
+    </div>
+
+    <div class="col-sm-2"></div>
+
+    <div class="col-sm-3">
+      <h2>My Fridge</h2>
+      <table id="fridge-table" mat-table [dataSource]="fridgeSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggleFridge() : null" [checked]="fridgeSelection.hasValue() && isAllSelectedInFridge()"
+              [indeterminate]="fridgeSelection.hasValue() && !isAllSelectedInFridge()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? fridgeSelection.toggle(row) : null"
+              [checked]="fridgeSelection.isSelected(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ingredient">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.ingredient}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="fridgeSelection.toggle(row)"></tr>
+      </table>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" id="searchQuery" placeholder="Your Ingredients" aria-label="Recipient's username"
+          aria-describedby="button-addon2">
+        <div class="input-group-append">
+          <button class="btn ts-button" type="button" id="searchButton" (click)="searchForRecipe(searchIndex=0)">Search For Recipes</button>
+          <button [disabled]="!searchExecuted || minSearchIndex || noResultList" (click)="nextPreviousQuery()"><</button>
+          <button>Page {{searchIndex+1}}</button>
+          <button [disabled]="!searchExecuted || maxSearchIndex || noResultList" (click)="nextSearchQuery()">></button>
         </div>
-      
-        <div class="row justify-content-md-center">
-          <div class="col-sm-6">
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" id="searchQuery" placeholder="Your Ingredients" aria-label="Recipient's username"
-                aria-describedby="button-addon2">
-              <div class="input-group-append">
-                <button class="btn ts-button" type="button" id="searchButton" (click)="searchForRecipe()">Search For Recipes</button>
-              </div>
-            </div>
-          </div>
-          <div *ngIf="!resultList.hits && searchExecuted" class="container">NO RESULTS FOUND</div>
-          <ul id="recipeList" *ngFor="let recipe of recipes">
-            <ul *ngFor="let hits of recipe.hits">
-              <br>
-              <img [src]=hits.recipe.image />
-              <li>
-                <h2>{{ hits.recipe.label }}</h2>
-              </li>
-              <li>
-                <h3><a target="blank" [href]=hits.recipe.url>Recipe Instructions</a></h3>
-              </li>
-              <li>
-                <h3>Ingredients:</h3>
-              </li>
-              <ul *ngFor="let ingredient of hits.recipe.ingredientLines">
-                <li>{{ ingredient }}</li>
-              </ul>
-              <br>
-            </ul>
-          </ul>
-        </div>
-        </div> -->
-<div class="container">
-<div class="row">
-    <div class="col-sm">
-        <h2>My Fridge</h2>
-        <table id="fridge-table" mat-table [dataSource]="fridgeSource" class="mat-elevation-z8">
-
-            <ng-container matColumnDef="select">
-                <th mat-header-cell *matHeaderCellDef>
-                    <mat-checkbox (change)="$event ? masterToggleFridge() : null" [checked]="fridgeSelection.hasValue() && isAllSelectedInFridge()"
-                        [indeterminate]="fridgeSelection.hasValue() && !isAllSelectedInFridge()">
-                    </mat-checkbox>
-                </th>
-                <td mat-cell *matCellDef="let row">
-                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? fridgeSelection.toggle(row) : null"
-                        [checked]="fridgeSelection.isSelected(row)">
-                    </mat-checkbox>
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="quantity">
-                <th mat-header-cell *matHeaderCellDef> No. </th>
-                <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="unit">
-                <th mat-header-cell *matHeaderCellDef> Unit </th>
-                <td mat-cell *matCellDef="let element"> {{element.unit}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="ingredient">
-                <th mat-header-cell *matHeaderCellDef> Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.ingredient}} </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="fridgeSelection.toggle(row)"></tr>
-        </table>
+      </div>
     </div>
-    </div>
-    </div>
+    <div *ngIf="noResultList && searchExecuted" class="container">NO RESULTS FOUND</div>
+    <ul *ngFor="let hits of recipes.hits; let i = index;">
+
+        <a (click)= "viewRecipe(hits.recipe.label, hits.recipe.url, hits.recipe.image, hits.recipe.ingredientLines)">
+        <mat-card class="recipe-card" [ngClass]="{ 'mat-elevation-z10': isHover[i] }" (mouseover)="isHover[i] = true"
+          (mouseleave)="isHover[i] = false">
+          <mat-card-header class="recipe-header">
+            <mat-card-title>{{ hits.recipe.label }}</mat-card-title>
+          </mat-card-header>
+          <img mat-card-image class="recipe-image" [src]=hits.recipe.image alt="Image Unavailable">
+        </mat-card>
+      </a>
+
+    </ul>
+  </div>
+</div>

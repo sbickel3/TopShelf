@@ -4,10 +4,10 @@
 <div class="container">
 
   <!-- Jumbotron Header -->
-  <header class="jumbotron my-4" id="featuredRecipe">
-    <h1 class="display-3">Country Fried Steak & Eggs</h1>
-    <p class="lead">Craving a little breakfast for dinner? This one may be easier than you think.</p>
-    <a href="#" class="btn btn-lg ts-button" routerLink="/featured-recipe">Show Recipe</a>
+  <header class="jumbotron my-4" id="featuredRecipe" >
+    <h1 class="display-3">{{recipe.hits[0].recipe.label}}</h1>
+    <p class="lead">Craving a big meal while watching the game? This one may be easier than you think.</p>
+    <a  class="btn btn-lg ts-button" (click)= "viewRecipe(recipe.hits.recipe.label, recipe.hits.recipe.url, recipe.hits.recipe.image, recipe.hits.recipe.ingredientLines)">Show Recipe</a>
   </header>
 
 
@@ -35,7 +35,7 @@
           <p class="card-text">View all the recipes you've made.</p>
         </div>
         <div class="card-footer">
-          <a href="#" class="btn ts-button">View Recipes</a>
+          <a routerLink="/chef-recipes" class="btn ts-button">View Recipes</a>
         </div>
       </div>
     </div>

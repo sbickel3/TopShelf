@@ -1,72 +1,87 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RecipesService } from '../recipes.service';
 import { IRecipes } from '../irecipes';
 import { Subscription } from 'rxjs';
-import * as parsing from '../parser/parse';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { Recipe } from '../models/recipe';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-recipes',
   templateUrl: './view-recipes.component.html',
   styleUrls: ['./view-recipes.component.css']
 })
-export class ViewRecipesComponent implements OnInit, OnDestroy {
+export class ViewRecipesComponent implements OnInit {
 
-  recipes: IRecipes[][] = new Array();
-  recipesInt: IRecipes;
+  recipes: IRecipes = {} as IRecipes;
   searchExecuted = false;
   subscription: Subscription;
-  resultList: IRecipes[] = [];
+  noResultList: boolean = false;
+  isHover: boolean[] = [false, false, false, false, false, false];
+  searchIndex: number = 0;
+  minSearchIndex: boolean = true;
+  maxSearchIndex: boolean = true; 
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
-  dataSource: MatTableDataSource<IRecipes>;
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
-  constructor(private recipesService: RecipesService) {
-
-    this.dataSource = new MatTableDataSource(this.resultList);
-
-   }
+  constructor(private recipesService: RecipesService, private router:Router) { }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  searchForRecipe(pageIndex: number) {
+    if(pageIndex == 0){
+      this.minSearchIndex = true;
     }
-  }
 
-  searchForRecipe() {
-    this.recipes.length = 0;
-    console.log("SEARCHING")
-    this.searchExecuted = true;
+    this.noResultList = false;
+    pageIndex = this.searchIndex; 
+    
     let searchQuery = (<HTMLInputElement>document.getElementById('searchQuery')).value;
-    this.subscription = this.recipesService.getRecipes(searchQuery).subscribe(apiRecipes => this.recipes.push(apiRecipes));
-  }
-
-  parseIngredients(ingr: string) {
-    parsing.parse(ingr);
-  }
-
-  // checkValue() {
-  //   this.recipes.forEach((value: IRecipes[], index: number) => {
-  //     this.resultList = value;
-  //     console.log(index, value);
-  //     console.log(this.resultList);
-  //   });
-  // }
-
-  ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+    if(searchQuery){
+      this.searchExecuted = true;
+      this.subscription = this.recipesService.getRecipes(searchQuery, pageIndex).subscribe(apiRecipes => {
+        this.recipes = apiRecipes;
+        
+        if(this.recipes.hits.length == 0){
+          this.noResultList = true;
+        }
+        else if(this.recipes.hits.length < 6){
+          this.maxSearchIndex = true;
+        }
+        else{
+          this.maxSearchIndex = false; 
+          this.minSearchIndex = false; 
+          if(pageIndex == 0){
+            this.minSearchIndex = true;
+          }
+        }
+      });
     }
+  }
+
+  nextPreviousQuery(){
+    this.searchIndex--;
+    this.maxSearchIndex = false; 
+    if(this.searchIndex < 0){
+      this.searchIndex == 0;
+      this.minSearchIndex = true;
+    } 
+    else{
+      this.searchForRecipe(this.searchIndex);
+    } 
+  }
+
+  nextSearchQuery(){
+    this.searchIndex++; 
+    this.minSearchIndex = false; 
+
+    this.searchForRecipe(this.searchIndex);
+  }
+
+  editRecipe(myRecipe: Recipe){
+
+    localStorage.setItem('recipe', JSON.stringify(myRecipe));
+    
+    this.router.navigate(['single-recipe']);
+
   }
 
 }
