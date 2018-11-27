@@ -7,7 +7,7 @@
   <header class="jumbotron my-4" id="featuredRecipe" >
     <h1 class="display-3">{{recipe.hits[0].recipe.label}}</h1>
     <p class="lead">Craving a big meal while watching the game? This one may be easier than you think.</p>
-    <a  class="btn btn-lg ts-button" (click)= "viewRecipe(recipe.hits.recipe.label, recipe.hits.recipe.url, recipe.hits.recipe.image, recipe.hits.recipe.ingredientLines)">Show Recipe</a>
+    <a  class="btn btn-lg ts-button" (click)= "viewRecipe(recipe.hits[0].recipe.label, recipe.hits[0].recipe.url, recipe.hits[0].recipe.image, recipe.hits[0].recipe.ingredientLines)">Show Recipe</a>
   </header>
 
 
