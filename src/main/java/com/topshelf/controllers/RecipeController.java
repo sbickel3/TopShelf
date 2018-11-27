@@ -50,7 +50,7 @@ public class RecipeController {
 	@PostMapping(value="/new", consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Boolean> addNewRecipe(@RequestBody Recipe newRecipe) throws SQLException, JSONException, UnsupportedEncodingException {
 		recipeService.addRecipe(newRecipe);
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
 	@PutMapping(value="/update", consumes=MediaType.APPLICATION_JSON_VALUE)
@@ -59,9 +59,9 @@ public class RecipeController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@DeleteMapping(value="/delete", consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Boolean> deleteRecipe(@RequestBody Recipe recipeToDelete) throws SerialException, UnsupportedEncodingException, JSONException, SQLException{
-		recipeService.deleteRecipe(recipeToDelete);
-		return new ResponseEntity<>(HttpStatus.OK);
+	@DeleteMapping(value="/delete/{recipeId}")
+	public ResponseEntity<Boolean> deleteRecipe(@PathVariable int recipeId) throws SerialException, UnsupportedEncodingException, JSONException, SQLException{
+		recipeService.deleteRecipe(recipeId);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

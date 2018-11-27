@@ -49,10 +49,10 @@ public class RecipeService {
 	}
 	
 	@Transactional
-	public void deleteRecipe(Recipe deleteRecipe) throws SerialException, UnsupportedEncodingException, JSONException, SQLException {
-		boolean recipeExists = this.cookBookService.deleteRecipeFromCookBook(deleteRecipe.getId());
+	public void deleteRecipe(int recipeId) throws SerialException, UnsupportedEncodingException, JSONException, SQLException {
+		boolean recipeExists = this.cookBookService.deleteRecipeFromCookBook(recipeId);
 		if (recipeExists) {
-			recipeRepository.deleteRecipe(deleteRecipe);
+			recipeRepository.deleteRecipe(recipeId);
 		}
 	}
 	

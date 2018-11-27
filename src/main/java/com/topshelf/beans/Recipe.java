@@ -36,7 +36,7 @@ public class Recipe {
 	private String name;
 	
 	@Column(name="instruction")
-	private String instruction;
+	private String instruction;               
 	
 	@Column(name="photo")
 	private String photo;

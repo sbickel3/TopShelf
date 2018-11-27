@@ -61,10 +61,14 @@ public class RecipeRepository {
 		session.merge(updatedRecipe);
 	}
 	
-	public void deleteRecipe(Recipe deleteRecipe) throws JSONException, SerialException, UnsupportedEncodingException, SQLException {
+	public void deleteRecipe(int recipeId) throws JSONException, SerialException, UnsupportedEncodingException, SQLException {
 		Session session = sessionFactory.getCurrentSession();
-		JSONObject json = ObjectTypeConverter.convertListToJson(deleteRecipe.getIngredientList());
-		deleteRecipe.setIngredient(ObjectTypeConverter.convertJSONtoBLOB(json));
-		session.delete(deleteRecipe);
+		Query q = session.createQuery("delete from Recipe where id = ?");
+		q.setParameter(0, recipeId);
+		q.executeUpdate();
+//		Session session = sessionFactory.getCurrentSession();
+//		JSONObject json = ObjectTypeConverter.convertListToJson(deleteRecipe.getIngredientList());
+//		deleteRecipe.setIngredient(ObjectTypeConverter.convertJSONtoBLOB(json));
+//		session.delete(deleteRecipe);
 	}
 }
