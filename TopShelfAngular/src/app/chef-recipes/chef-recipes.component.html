@@ -29,7 +29,7 @@
 
   <div class="row justify-content-md-center">
     <div class="col-sm-10">
-      <div *ngIf="noResultList && searchExecuted" class="container">NO RESULTS FOUND</div>
+      <div *ngIf="noResultList" class="container">NO RESULTS FOUND</div>
       <div *ngFor="let hits of recipes; let i = index;">
         <a (click)= "editRecipe(hits)">
         <mat-card class="recipe-card" [ngClass]="{ 'mat-elevation-z10': isHover[i] }" (mouseover)="isHover[i] = true"

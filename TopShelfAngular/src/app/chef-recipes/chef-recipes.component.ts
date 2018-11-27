@@ -14,7 +14,6 @@ import { Recipe } from '../models/recipe';
 export class ChefRecipesComponent implements OnInit {
 
   recipes: Recipe[] = [];
-  searchExecuted = false;
   subscription: Subscription;
   noResultList: boolean = false;
   isHover: boolean[] = [false, false, false, false, false, false];
@@ -33,9 +32,9 @@ export class ChefRecipesComponent implements OnInit {
 
     this.chefservice.getAllChefRecipes(this.user.chef.id).subscribe(chefRecipe => {
       this.recipes = chefRecipe;
+      this.searchForRecipe(0);
     });
 
-    this.searchForRecipe(0);
   }
 
   ngOnInit() {
@@ -49,24 +48,24 @@ export class ChefRecipesComponent implements OnInit {
     this.noResultList = false;
     pageIndex = this.searchIndex;
 
-    this.searchExecuted = true;
-    
-     
+    console.log(this.recipes);
 
-      if (this.recipes.length == 0) {
-        this.noResultList = true;
+    if (this.recipes.length == 0) {
+      this.noResultList = true;
+    }
+    else if (this.recipes.length < 6) {
+      this.noResultList = false;
+      this.maxSearchIndex = true;
+    }
+    else {
+      this.noResultList = false;
+      this.maxSearchIndex = false;
+      this.minSearchIndex = false;
+      if (pageIndex == 0) {
+        this.minSearchIndex = true;
       }
-      else if (this.recipes.length < 6) {
-        this.maxSearchIndex = true;
-      }
-      else {
-        this.maxSearchIndex = false;
-        this.minSearchIndex = false;
-        if (pageIndex == 0) {
-          this.minSearchIndex = true;
-        }
-      }
-  
+    }
+    console.log(this.recipes.length);
   }
 
   nextPreviousQuery() {
@@ -88,10 +87,10 @@ export class ChefRecipesComponent implements OnInit {
     this.searchForRecipe(this.searchIndex);
   }
 
-  editRecipe(myRecipe: Recipe){
+  editRecipe(myRecipe: Recipe) {
 
     localStorage.setItem('recipe', JSON.stringify(myRecipe));
-    
+
     this.router.navigate(['edit-recipe']);
 
   }

@@ -31,7 +31,7 @@
     <div *ngIf="noResultList && searchExecuted" class="container">NO RESULTS FOUND</div>
     <ul *ngFor="let hits of recipes.hits; let i = index;">
 
-      <a (click)= "editRecipe(hits)">
+      <a (click)= "viewRecipe(hits.recipe.label, hits.recipe.url, hits.recipe.image, hits.recipe.ingredientLines)">
         <mat-card class="recipe-card" [ngClass]="{ 'mat-elevation-z10': isHover[i] }" (mouseover)="isHover[i] = true"
           (mouseleave)="isHover[i] = false">
           <mat-card-header class="recipe-header">

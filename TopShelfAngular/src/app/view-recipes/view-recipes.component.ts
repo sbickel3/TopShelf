@@ -84,4 +84,23 @@ export class ViewRecipesComponent implements OnInit {
 
   }
 
+  viewRecipe(recipeName: any, recipeInstructions: any, recipePhoto: any, recipeIngredients: string[]){
+
+    let myRecipe: Recipe = {} as Recipe;
+    myRecipe.name = recipeName;
+    myRecipe.instruction = recipeInstructions;
+    myRecipe.photo = recipePhoto;
+    myRecipe.ingredientList = [];
+
+    // for(let ing of recipeIngredients){
+    //   myRecipe.ingredientList.push(parsing.parse(ing));
+    // }
+
+    localStorage.setItem('recipe', JSON.stringify(myRecipe));
+    localStorage.setItem('recipe-ingredient', JSON.stringify(recipeIngredients));
+    
+    this.router.navigate(['single-recipe']);
+
+  }
+
 }
