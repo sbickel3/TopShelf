@@ -9,8 +9,7 @@ import { Chef } from '../models/chef';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { IngredientFormatterPipe } from '../ingredient-formatter.pipe';
-import * as parsing from '../parser/parse';
-import * as converting from '../parser/convert';
+import { Router } from '@angular/router';
 
 const HTTP_OPTIONS = {
   headers: new HttpHeaders({
@@ -49,7 +48,7 @@ export class ChecklistComponent implements OnInit {
   ingredientFridgeAlert = false;
   ingredientGroceryAlert = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.myInfo = this.user.chef;
     this.myFridge = this.user.fridge;
@@ -212,6 +211,7 @@ export class ChecklistComponent implements OnInit {
     this.http.put<Grocery>(environment.apiURL + 'grocerylist/update', groceryJSON, HTTP_OPTIONS).subscribe(response => {
       localStorage.setItem('grocery', JSON.stringify(this.myGrocery.ingredient));
       this.updateUser();
+      window.alert("Ingredient lists saved");
     });
 
   }
@@ -224,7 +224,7 @@ export class ChecklistComponent implements OnInit {
   }
 
   revertChanges() {
-    window.location.reload();
+    window.location.reload(true);
   }
 
 }

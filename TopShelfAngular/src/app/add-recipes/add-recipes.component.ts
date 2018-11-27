@@ -36,7 +36,7 @@ export class AddRecipesComponent implements OnInit {
 
   addRecipe(){
     this.chefRecipeService.addNewChefRecipe(this.newRecipe).subscribe(recipe => {
-      this.router.navigate(['user-home']);
+      this.router.navigate(['chef-recipes']);
     })
   }
 
